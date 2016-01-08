@@ -76,8 +76,8 @@ public class ScrollBar extends GuiWidget {
         super.onMouseInput();
         if(shouldHandleMouseWheel()){
             double delta = Mouse.getDWheel();
-            if(delta < 0) updateProgress(0.20F);
-            if(delta > 0) updateProgress(-0.20F);
+            if(delta < 0) updateProgress(0.10F);
+            if(delta > 0) updateProgress(-0.10F);
         }
     }
     
