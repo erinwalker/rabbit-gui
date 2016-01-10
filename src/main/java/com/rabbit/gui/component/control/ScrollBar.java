@@ -53,7 +53,7 @@ public class ScrollBar extends GuiWidget {
      */
     private void calculateScroller(int mouseY){
         if(isScrolling) {
-            float magic = ((float)(mouseY - getY() + 2) - 10F) / ((float)(getY() + this.height - (getY() + 2)) - 15.0F);
+            float magic = (mouseY - getY() + 2 - 10F) / (getY() + this.height - (getY() + 2) - 15.0F);
             updateProgress(magic - this.scrolled);
         }
     }

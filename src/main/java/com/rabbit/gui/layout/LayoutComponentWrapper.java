@@ -5,16 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.commons.lang3.tuple.Pair;
-
-import com.google.gson.internal.UnsafeAllocator;
 import com.rabbit.gui.component.IGui;
 import com.rabbit.gui.layout.argument.ILayoutArgument;
 import com.rabbit.gui.layout.argument.LayoutArgument;
 import com.rabbit.gui.layout.argument.LayoutCalculatableArgument;
 import com.rabbit.gui.show.IShow;
-
-import sun.reflect.*;
 
 public class LayoutComponentWrapper {
     private Class type;

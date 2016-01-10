@@ -60,7 +60,7 @@ public class Slider extends GuiWidget {
 	 */
 	private void calculateScroller(int pos) {
 		if (isScrolling) {
-			float magic = ((float) (pos - getX() + 2) - 10F) / ((float) (getX() + this.width - (getX() + 2)) - 15.0F);
+			float magic = (pos - getX() + 2 - 10F) / (getX() + this.width - (getX() + 2) - 15.0F);
 			updateProgress(magic - this.scrolled);
 		}
 	}
@@ -79,7 +79,7 @@ public class Slider extends GuiWidget {
 		super.onMouseRelease(mouseX, mouseY);
 		if(this.isScrolling){
 			this.isScrolling = false;
-			float magic = ((float) (mouseX - getX() + 2) - 10F) / ((float) (getX() + this.width - (getX() + 2)) - 15.0F);
+			float magic = (mouseX - getX() + 2 - 10F) / (getX() + this.width - (getX() + 2) - 15.0F);
 			updateProgress(magic - this.scrolled);
 		}
 		

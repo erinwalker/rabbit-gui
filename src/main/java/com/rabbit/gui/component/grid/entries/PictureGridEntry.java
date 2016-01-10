@@ -7,14 +7,7 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.GL11;
 
-import com.rabbit.gui.component.control.PictureButton;
-import com.rabbit.gui.component.display.Picture;
 import com.rabbit.gui.component.grid.Grid;
-import com.rabbit.gui.component.grid.entries.PictureButtonGridEntry.OnClickListener;
-import com.rabbit.gui.component.list.DisplayList;
-import com.rabbit.gui.render.TextAlignment;
-import com.rabbit.gui.render.TextRenderer;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 

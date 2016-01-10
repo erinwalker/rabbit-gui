@@ -35,7 +35,6 @@ import com.rabbit.gui.show.LayoutShow;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
-import scala.actors.threadpool.Arrays;
 
 /**
  * Generates show from json file

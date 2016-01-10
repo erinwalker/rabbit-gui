@@ -3,12 +3,7 @@ package com.rabbit.gui.component.table;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
-import org.lwjgl.util.Rectangle;
-
 import com.rabbit.gui.component.GuiWidget;
-import com.rabbit.gui.component.control.Button;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;

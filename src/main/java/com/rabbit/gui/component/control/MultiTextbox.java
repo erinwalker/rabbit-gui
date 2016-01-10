@@ -3,9 +3,6 @@ package com.rabbit.gui.component.control;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
-import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextRenderer;
 
@@ -90,12 +87,12 @@ public class MultiTextbox extends TextBox {
             }
             this.listHeight = lineCount * TextRenderer.getFontRenderer().FONT_HEIGHT;
             scrollBar.setVisiblie(this.listHeight > this.height - 4);
-            scrollBar.setScrollerSize((int)(getScrollerSize()));
+            scrollBar.setScrollerSize((getScrollerSize()));
         }
     }
     
     private int getScrollerSize(){
-        return (int)(1F * (float)this.height / this.listHeight * (this.height - 4));
+        return (int)(1F * this.height / this.listHeight * (this.height - 4));
     }
     
     @Override
@@ -164,7 +161,8 @@ public class MultiTextbox extends TextBox {
     }
     
     
-    public int getMaxLength() {
+    @Override
+	public int getMaxLength() {
         return this.maxStringLenght;
     }
     

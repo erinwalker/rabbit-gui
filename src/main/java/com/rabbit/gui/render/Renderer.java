@@ -2,14 +2,11 @@ package com.rabbit.gui.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import java.awt.Color;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -26,8 +23,8 @@ public class Renderer {
      * @param firstColor - first gradient color
      * @param secondColor - second gradient color
      */
-    public static void drawGradient(int xTop, int yTop, int xBot, int yBot, int firstColor, int secondColor){
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
+    public static void drawGradient(int xTop, int yTop, int xBot, int yBot, int firstColor, int secondColor){    	
+    	GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
 
@@ -65,15 +62,16 @@ public class Renderer {
      */
     public static void drawTexturedModalRect(int posX, int posY, int uPos, int vPos, int width, int height) {
         float f = 0.00390625F;
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(posX + 0, posY + height, 0,
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
+        tessellator.getWorldRenderer().startDrawingQuads();
+        renderer.addVertexWithUV(posX + 0, posY + height, 0,
                 (uPos + 0) * f, (vPos + height) * f);
-        tessellator.addVertexWithUV(posX + width, posY + height, 0,
+        renderer.addVertexWithUV(posX + width, posY + height, 0,
                 (uPos + width) * f, (vPos + height) * f);
-        tessellator.addVertexWithUV(posX + width, posY + 0, 0,
+        renderer.addVertexWithUV(posX + width, posY + 0, 0,
                 (uPos + width) * f, (vPos + 0) * f);
-        tessellator.addVertexWithUV(posX + 0, posY + 0, 0,
+        renderer.addVertexWithUV(posX + 0, posY + 0, 0,
                 (uPos + 0) * f, (vPos + 0) * f);
         tessellator.draw();
     }
@@ -100,16 +98,17 @@ public class Renderer {
             yTop = yBot;
             yBot = temp;
         }
-        Tessellator tessellator = Tessellator.instance;
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
         glColorRGB(color);
-        tessellator.startDrawingQuads();
-        tessellator.addVertex(xTop, yBot, 0.0D);
-        tessellator.addVertex(xBot, yBot, 0.0D);
-        tessellator.addVertex(xBot, yTop, 0.0D);
-        tessellator.addVertex(xTop, yTop, 0.0D);
+        renderer.startDrawingQuads();
+        renderer.addVertex(xTop, yBot, 0.0D);
+        renderer.addVertex(xBot, yBot, 0.0D);
+        renderer.addVertex(xBot, yTop, 0.0D);
+        renderer.addVertex(xTop, yTop, 0.0D);
         tessellator.draw();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_BLEND);
@@ -127,17 +126,18 @@ public class Renderer {
             yTop = yBot;
             yBot = temp;
         }
-        Tessellator tessellator = Tessellator.instance;
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         specialGL.run();
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
         glColorRGB(color);
-        tessellator.startDrawingQuads();
-        tessellator.addVertex(xTop, yBot, 0.0D);
-        tessellator.addVertex(xBot, yBot, 0.0D);
-        tessellator.addVertex(xBot, yTop, 0.0D);
-        tessellator.addVertex(xTop, yTop, 0.0D);
+        renderer.startDrawingQuads();
+        renderer.addVertex(xTop, yBot, 0.0D);
+        renderer.addVertex(xBot, yBot, 0.0D);
+        renderer.addVertex(xBot, yTop, 0.0D);
+        renderer.addVertex(xTop, yTop, 0.0D);
         tessellator.draw();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_BLEND);
@@ -208,12 +208,13 @@ public class Renderer {
     public static void drawTexturedModalRect(int xPos, int yPos, int u, int v, int imageWidth, int imageHeight, int width, int height, float zLevel) {
         float f = 1F / width;
         float f1 = 1F / height;
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(xPos,yPos + imageHeight, zLevel, u * f, (v + imageHeight) * f1);
-        tessellator.addVertexWithUV(xPos + imageWidth, yPos + imageHeight, zLevel, (u + imageWidth) * f, (v + imageHeight) * f1);
-        tessellator.addVertexWithUV(xPos + imageWidth, yPos, zLevel, (u + imageWidth) * f, v * f1);
-        tessellator.addVertexWithUV(xPos, yPos, zLevel, u * f, v * f1);
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
+        renderer.startDrawingQuads();
+        renderer.addVertexWithUV(xPos,yPos + imageHeight, zLevel, u * f, (v + imageHeight) * f1);
+        renderer.addVertexWithUV(xPos + imageWidth, yPos + imageHeight, zLevel, (u + imageWidth) * f, (v + imageHeight) * f1);
+        renderer.addVertexWithUV(xPos + imageWidth, yPos, zLevel, (u + imageWidth) * f, v * f1);
+        renderer.addVertexWithUV(xPos, yPos, zLevel, u * f, v * f1);
         tessellator.draw();
     }
 
@@ -260,12 +261,13 @@ public class Renderer {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         glColorRGB(color);
-        Tessellator tes = Tessellator.instance;
-        tes.startDrawing(GL11.GL_TRIANGLES);
-        tes.addVertex(topX, topY, 0);
-        tes.addVertex(leftX, leftY, 0);
-        tes.addVertex(rightX, rightY, 0);
-        tes.draw();
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
+        renderer.startDrawing(GL11.GL_TRIANGLES);
+        renderer.addVertex(topX, topY, 0);
+        renderer.addVertex(leftX, leftY, 0);
+        renderer.addVertex(rightX, rightY, 0);
+        tessellator.draw();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();

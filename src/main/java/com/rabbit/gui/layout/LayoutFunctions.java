@@ -10,14 +10,16 @@ import net.objecthunter.exp4j.function.Function;
 public class LayoutFunctions {
 
     public static final Function width = new Function("width", 0){
-        public double apply(double... args) {
+        @Override
+		public double apply(double... args) {
             IShow currentShow = getCurrentlyOpenedShow();
             return currentShow != null ? currentShow.getWidth() : 0;
         }
     };
     
     public static final Function height = new Function("height", 0){
-        public double apply(double... args) {
+        @Override
+		public double apply(double... args) {
             IShow currentShow = getCurrentlyOpenedShow();
             return currentShow != null ? currentShow.getHeight() : 0;
         }

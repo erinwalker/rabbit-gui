@@ -2,10 +2,13 @@ package com.rabbit.gui.base;
 
 import com.rabbit.gui.component.IGui;
 import com.rabbit.gui.show.IShow;
+import com.rabbit.gui.show.Show;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 
+import java.io.IOException;
 import java.util.Stack;
 
 public class Stage extends GuiScreen{
@@ -101,6 +104,7 @@ public class Stage extends GuiScreen{
      * Displays previously opened show <br>
      * If current show is the only opened show this stage will be closed <br>
      * If history is empty nothing will happen
+     * @return 
      */
     public void displayPrevious(){
         if(getShowHistory().size() != 0){
@@ -111,6 +115,18 @@ public class Stage extends GuiScreen{
                 display(getShowHistory().pop()); //remove and open previous
             }
         }
+    }
+    
+    public Show getPrevious(){
+        if(getShowHistory().size() != 0){
+            if(getShowHistory().size() == 1){
+                return null;
+            } else {
+                getShowHistory().pop(); //remove current
+                return (Show) getShowHistory().pop();
+            }
+        }
+		return null;
     }
 
     /**
@@ -153,9 +169,10 @@ public class Stage extends GuiScreen{
 
     /**
      * Wrapper for vanilla method
+     * @throws IOException 
      */
     @Override
-    public void handleMouseInput(){
+    public void handleMouseInput() throws IOException{
         super.handleMouseInput();
         show.onMouseInput();
     }
@@ -164,8 +181,8 @@ public class Stage extends GuiScreen{
      * Wrapper for vanilla method
      */
     @Override
-    protected void mouseMovedOrUp(int mouseX, int mouseY, int type) {
-        super.mouseMovedOrUp(mouseX, mouseY, type);
+    protected void mouseReleased(int mouseX, int mouseY, int type) {
+        super.mouseReleased(mouseX, mouseY, type);
         if(type == 0 || type == 1){
             show.onMouseRelease(mouseX, mouseY);
         }

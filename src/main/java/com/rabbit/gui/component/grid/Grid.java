@@ -3,7 +3,6 @@ package com.rabbit.gui.component.grid;
 import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.component.WidgetList;
 import com.rabbit.gui.component.grid.entries.GridEntry;
-import com.rabbit.gui.component.table.Table;
 import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;

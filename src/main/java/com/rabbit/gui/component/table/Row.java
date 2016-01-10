@@ -24,7 +24,8 @@ public class Row<T> implements WidgetList<T>{
         return name;
     }
     
-    public List<T> getContent(){
+    @Override
+	public List<T> getContent(){
         return content;
     }
     
