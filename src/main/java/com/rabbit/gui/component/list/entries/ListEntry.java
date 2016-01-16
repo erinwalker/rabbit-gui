@@ -2,9 +2,13 @@ package com.rabbit.gui.component.list.entries;
 
 import com.rabbit.gui.component.list.DisplayList;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Entry of DisplayList component
  */
+@SideOnly(Side.CLIENT)
 public interface ListEntry{
 
     /**

@@ -6,6 +6,10 @@ import java.util.List;
 
 import com.rabbit.gui.component.WidgetList;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class Row<T> implements WidgetList<T>{
     
     protected final String name;
@@ -24,7 +28,8 @@ public class Row<T> implements WidgetList<T>{
         return name;
     }
     
-    public List<T> getContent(){
+    @Override
+	public List<T> getContent(){
         return content;
     }
     

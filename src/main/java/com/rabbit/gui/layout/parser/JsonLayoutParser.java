@@ -33,13 +33,15 @@ import com.rabbit.gui.layout.argument.LayoutArgument;
 import com.rabbit.gui.layout.argument.LayoutCalculatableArgument;
 import com.rabbit.gui.show.LayoutShow;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
-import scala.actors.threadpool.Arrays;
 
 /**
  * Generates show from json file
  */
+@SideOnly(Side.CLIENT)
 public class JsonLayoutParser implements LayoutParser {
 
     @Override

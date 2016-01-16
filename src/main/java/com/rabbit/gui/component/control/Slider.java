@@ -6,9 +6,12 @@ import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
+@SideOnly(Side.CLIENT)
 public class Slider extends GuiWidget {
 
 	protected float sliderValue = 1.0F;
@@ -60,7 +63,7 @@ public class Slider extends GuiWidget {
 	 */
 	private void calculateScroller(int pos) {
 		if (isScrolling) {
-			float magic = ((float) (pos - getX() + 2) - 10F) / ((float) (getX() + this.width - (getX() + 2)) - 15.0F);
+			float magic = (pos - getX() + 2 - 10F) / (getX() + this.width - (getX() + 2) - 15.0F);
 			updateProgress(magic - this.scrolled);
 		}
 	}
@@ -79,7 +82,7 @@ public class Slider extends GuiWidget {
 		super.onMouseRelease(mouseX, mouseY);
 		if(this.isScrolling){
 			this.isScrolling = false;
-			float magic = ((float) (mouseX - getX() + 2) - 10F) / ((float) (getX() + this.width - (getX() + 2)) - 15.0F);
+			float magic = (mouseX - getX() + 2 - 10F) / (getX() + this.width - (getX() + 2) - 15.0F);
 			updateProgress(magic - this.scrolled);
 		}
 		

@@ -4,10 +4,14 @@ import java.net.URI;
 
 import com.rabbit.gui.show.LayoutShow;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Parser of gui layout of any type
  *
  */
+@SideOnly(Side.CLIENT)
 public interface LayoutParser {
     
     /**

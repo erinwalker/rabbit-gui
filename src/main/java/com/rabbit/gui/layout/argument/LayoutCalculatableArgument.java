@@ -2,12 +2,15 @@ package com.rabbit.gui.layout.argument;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.objecthunter.exp4j.Expression;
 
 /**
  * Represents layout argument which needs some argument 
  * For example: width and height of the screen
  */
+@SideOnly(Side.CLIENT)
 public class LayoutCalculatableArgument<T> implements ILayoutArgument {
 
     private String fieldName;

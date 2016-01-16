@@ -1,8 +1,11 @@
 package com.rabbit.gui.utils;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 
+@SideOnly(Side.CLIENT)
 public class Geometry {
 
     public static boolean isDotInArea(int areaX, int areaY, int areaWidth, int areaHeight, int dotX, int dotY){

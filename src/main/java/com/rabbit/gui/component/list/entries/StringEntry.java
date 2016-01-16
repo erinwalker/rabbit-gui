@@ -3,11 +3,16 @@ package com.rabbit.gui.component.list.entries;
 import com.rabbit.gui.component.list.DisplayList;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import com.rabbit.gui.render.Renderer;
 
 /**
  * Implementation of the ListEntry witch draws the given string in the center of entry slot
  */
+@SideOnly(Side.CLIENT)
 public class StringEntry implements ListEntry {
     
 	/**
@@ -56,7 +61,8 @@ public class StringEntry implements ListEntry {
         return this.title;
     }
 
-    public void setSelected(boolean state) {
+    @Override
+	public void setSelected(boolean state) {
         this.selected = state;
     }
 }

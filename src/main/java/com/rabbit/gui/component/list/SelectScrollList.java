@@ -3,9 +3,13 @@ package com.rabbit.gui.component.list;
 import com.rabbit.gui.component.list.entries.ListEntry;
 import com.rabbit.gui.component.list.entries.SelectListEntry;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SideOnly(Side.CLIENT)
 public class SelectScrollList extends ScrollableDisplayList{
 
     protected List<SelectListEntry> content;

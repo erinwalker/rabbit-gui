@@ -6,10 +6,12 @@ import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
-
+@SideOnly(Side.CLIENT)
 public class ScrollBar extends GuiWidget {
 
     protected float scrolled = 0;
@@ -53,7 +55,7 @@ public class ScrollBar extends GuiWidget {
      */
     private void calculateScroller(int mouseY){
         if(isScrolling) {
-            float magic = ((float)(mouseY - getY() + 2) - 10F) / ((float)(getY() + this.height - (getY() + 2)) - 15.0F);
+            float magic = (mouseY - getY() + 2 - 10F) / (getY() + this.height - (getY() + 2) - 15.0F);
             updateProgress(magic - this.scrolled);
         }
     }

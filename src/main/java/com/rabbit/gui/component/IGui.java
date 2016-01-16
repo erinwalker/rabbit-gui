@@ -2,11 +2,15 @@ package com.rabbit.gui.component;
 
 import com.rabbit.gui.base.WidgetContainer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Represents components of the screen
  * 
  * @author RedEnergy
  */
+@SideOnly(Side.CLIENT)
 public interface IGui {
     
     /**

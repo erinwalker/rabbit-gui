@@ -2,25 +2,19 @@ package com.rabbit.gui.component.control;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.GL11;
 
-import com.rabbit.gui.component.GuiWidget;
-import com.rabbit.gui.component.Shiftable;
 import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
-import com.rabbit.gui.render.TextRenderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class PictureButton extends Button {
 

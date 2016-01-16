@@ -3,6 +3,10 @@ package com.rabbit.gui.component.list.entries;
 import com.rabbit.gui.component.list.DisplayList;
 import com.rabbit.gui.render.Renderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public abstract class SelectListEntry implements ListEntry {
 
     protected boolean selected = false;

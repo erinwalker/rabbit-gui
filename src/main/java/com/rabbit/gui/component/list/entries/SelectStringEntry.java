@@ -4,6 +4,10 @@ import com.rabbit.gui.component.list.DisplayList;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class SelectStringEntry extends SelectListEntry {
 
     /**

@@ -3,8 +3,13 @@ package com.rabbit.gui.component;
 import com.rabbit.gui.component.control.Button;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import org.lwjgl.input.Keyboard;
 
+@SideOnly(Side.CLIENT)
 public class NumberPicker extends GuiWidget {
 
     protected int jumpValue = 10;

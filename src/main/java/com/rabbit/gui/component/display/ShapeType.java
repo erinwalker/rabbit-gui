@@ -2,9 +2,14 @@ package com.rabbit.gui.component.display;
 
 import com.rabbit.gui.render.Renderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Contains shape forms which can be used in Shape.class component
  */
+
+@SideOnly(Side.CLIENT)
 public enum ShapeType {
     RECT((x, y, width, height, color) -> Renderer.drawRect(x, y, x + width, y + height, color)),
     TRIANGLE((x, y, width, height, color) -> Renderer.drawTriangle(x, y + height, x + width / 2, y, x + width, y + height, color)),

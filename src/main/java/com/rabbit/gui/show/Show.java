@@ -1,7 +1,6 @@
 package com.rabbit.gui.show;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -13,8 +12,11 @@ import com.rabbit.gui.base.WidgetContainer;
 import com.rabbit.gui.component.IBackground;
 import com.rabbit.gui.component.IGui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.StringUtils;
 
+@SideOnly(Side.CLIENT)
 public abstract class Show implements IShow, WidgetContainer{
 
     protected List<IGui> components = new ArrayList();

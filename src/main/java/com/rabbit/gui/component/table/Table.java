@@ -3,18 +3,16 @@ package com.rabbit.gui.component.table;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
-import org.lwjgl.util.Rectangle;
-
 import com.rabbit.gui.component.GuiWidget;
-import com.rabbit.gui.component.control.Button;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.EnumChatFormatting;
 
+@SideOnly(Side.CLIENT)
 public class Table extends GuiWidget {
 
     protected List<Row> rows;

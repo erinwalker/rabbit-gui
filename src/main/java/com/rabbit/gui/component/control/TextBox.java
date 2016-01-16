@@ -2,8 +2,6 @@ package com.rabbit.gui.component.control;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.Rectangle;
-
 import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.component.Shiftable;
 import com.rabbit.gui.layout.LayoutComponent;
@@ -11,9 +9,12 @@ import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextRenderer;
 import com.rabbit.gui.utils.ControlCharacters;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatAllowedCharacters;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class TextBox extends GuiWidget implements Shiftable {
 

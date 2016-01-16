@@ -6,9 +6,13 @@ import com.rabbit.gui.component.control.ScrollBar;
 import com.rabbit.gui.component.grid.entries.GridEntry;
 import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.utils.Geometry;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class ScrollableGrid extends Grid {
 

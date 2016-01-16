@@ -1,17 +1,18 @@
 package com.rabbit.gui.component.list;
 
-import java.awt.*;
 import java.util.List;
 
 import com.rabbit.gui.component.control.ScrollBar;
 import com.rabbit.gui.component.list.entries.ListEntry;
 import com.rabbit.gui.layout.LayoutComponent;
-import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class ScrollableDisplayList extends DisplayList {
 
@@ -102,9 +103,7 @@ public class ScrollableDisplayList extends DisplayList {
 	}
 
 	private int getScrollerSize() {
-		// return (int) (1F * this.height / (this.content.size() *
-		// this.slotHeight) * (this.height - 4));
-		return Math.max((int) (1F * this.height / (this.content.size() * this.slotHeight) * (this.height - 4)) * 2, 15);
+		return (int) Math.min(Math.max((int) (1F * this.height / (this.content.size() * this.slotHeight) * (this.height - 4)) * 2, 15), this.height*.95);
 	}
 
 }

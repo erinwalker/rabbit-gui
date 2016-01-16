@@ -2,8 +2,12 @@ package com.rabbit.gui.component.display;
 
 import com.rabbit.gui.component.GuiWidget;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import java.awt.*;
 
+@SideOnly(Side.CLIENT)
 public class Shape extends GuiWidget {
 
     private ShapeType shapeType;

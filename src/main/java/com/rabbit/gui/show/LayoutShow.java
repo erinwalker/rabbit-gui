@@ -4,10 +4,14 @@ import java.util.List;
 
 import com.rabbit.gui.layout.LayoutComponentWrapper;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Represents show which has been generated from layout
  *
  */
+@SideOnly(Side.CLIENT)
 public class LayoutShow extends Show {
 
     /**

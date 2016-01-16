@@ -7,9 +7,13 @@ import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import java.util.Arrays;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class DisplayList extends GuiWidget implements WidgetList<ListEntry>{
 

@@ -4,6 +4,10 @@ import com.rabbit.gui.base.Stage;
 import com.rabbit.gui.component.IBackground;
 import com.rabbit.gui.component.IGui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public interface IShow extends IGui{
     
     void onInit();

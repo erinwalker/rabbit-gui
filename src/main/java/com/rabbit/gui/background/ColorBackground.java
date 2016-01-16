@@ -5,6 +5,10 @@ import java.awt.Color;
 import com.rabbit.gui.component.IBackground;
 import com.rabbit.gui.render.Renderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class ColorBackground implements IBackground {
     
     private final Color color;

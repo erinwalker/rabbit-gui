@@ -9,21 +9,19 @@ import javax.imageio.ImageIO;
 import org.lwjgl.opengl.GL11;
 
 import com.rabbit.gui.component.control.Button;
-import com.rabbit.gui.component.control.PictureButton;
-import com.rabbit.gui.component.control.Button.ButtonClickListener;
 import com.rabbit.gui.component.grid.Grid;
-import com.rabbit.gui.component.list.DisplayList;
-import com.rabbit.gui.render.TextAlignment;
-import com.rabbit.gui.render.TextRenderer;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 import com.rabbit.gui.render.Renderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Implementation of the ListEntry witch draws the given string in the center of entry slot
  */
+@SideOnly(Side.CLIENT)
 public class PictureButtonGridEntry extends Button implements GridEntry  {
 
     /**
@@ -106,21 +104,25 @@ public class PictureButtonGridEntry extends Button implements GridEntry  {
 		GL11.glPopMatrix();
 	}
 	
+	@Override
 	public PictureButtonGridEntry doesDrawHoverText(boolean state) {
 		this.drawHoverText = state;
 		return this;
 	}
 
+	@Override
 	public PictureButtonGridEntry addHoverText(String text) {
 		this.hoverText.add(text);
 		return this;
 	}
 
+	@Override
 	public PictureButtonGridEntry setHoverText(List<String> text) {
 		this.hoverText = text;
 		return this;
 	}
 
+	@Override
 	public List<String> getHoverText() {
 		return this.hoverText;
 	}

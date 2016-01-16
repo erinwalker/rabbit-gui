@@ -2,12 +2,16 @@ package com.rabbit.gui.base;
 
 import com.rabbit.gui.component.IGui;
 import com.rabbit.gui.show.IShow;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 
 import java.util.Stack;
 
+@SideOnly(Side.CLIENT)
 public class Stage extends GuiScreen{
 
     /**

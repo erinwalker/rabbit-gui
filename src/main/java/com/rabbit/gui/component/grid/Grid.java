@@ -3,14 +3,17 @@ package com.rabbit.gui.component.grid;
 import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.component.WidgetList;
 import com.rabbit.gui.component.grid.entries.GridEntry;
-import com.rabbit.gui.component.table.Table;
 import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import java.util.Arrays;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class Grid extends GuiWidget implements WidgetList<GridEntry> {
 

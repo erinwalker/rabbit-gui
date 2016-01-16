@@ -2,18 +2,19 @@ package com.rabbit.gui.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import java.awt.Color;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@SideOnly(Side.CLIENT)
 public class Renderer {
 
 

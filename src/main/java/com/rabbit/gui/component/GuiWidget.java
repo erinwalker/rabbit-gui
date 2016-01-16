@@ -7,11 +7,15 @@ import com.rabbit.gui.base.WidgetContainer;
 import com.rabbit.gui.exception.IdAlreadyRegisteredException;
 import com.rabbit.gui.layout.LayoutComponent;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Represents components of the screen
  * 
  * @author RedEnergy
  */
+@SideOnly(Side.CLIENT)
 public abstract class GuiWidget implements IGui, WidgetContainer {
 
     protected WidgetContainer parent;
