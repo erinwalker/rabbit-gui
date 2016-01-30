@@ -7,6 +7,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 
+//does this need to be its own mod? we can probably just have the code live with the others
 @Mod(modid = "rabbit-gui", name = "Rabbit Gui Library", version = "v1.3.0")
 public class GuiFoundation {
 

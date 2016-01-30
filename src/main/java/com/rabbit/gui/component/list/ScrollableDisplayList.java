@@ -103,7 +103,7 @@ public class ScrollableDisplayList extends DisplayList {
 	}
 
 	private int getScrollerSize() {
-		return (int) Math.min(Math.max((int) (1F * this.height / (this.content.size() * this.slotHeight) * (this.height - 4)) * 2, 15), this.height*.95);
+		return (int) Math.min(Math.max((int) (1F * this.height / (this.content.size() * this.slotHeight) * (this.height - 4)) * 2, 15), this.height*.8);
 	}
 
 }
