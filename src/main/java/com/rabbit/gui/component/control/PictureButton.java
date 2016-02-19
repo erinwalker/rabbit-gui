@@ -44,6 +44,7 @@ public class PictureButton extends Button {
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
 		if (isVisible()) {
+			GL11.glPushMatrix();
 			prepareRender();
 			if (!isEnabled()) {
 				drawButton(DISABLED_STATE);
@@ -52,12 +53,14 @@ public class PictureButton extends Button {
 				drawButton(HOVER_STATE);
 				renderPicture();
 				if (this.drawHoverText) {
-					Renderer.drawHoveringText(this.hoverText, mouseX, mouseY);
+					Renderer.drawxHoveringText(this.hoverText, mouseX, mouseY);
 				}
 			} else {
 				drawButton(IDLE_STATE);
 				renderPicture();
 			}
+			endRender();
+			GL11.glPopMatrix();
 		}
 	}
 

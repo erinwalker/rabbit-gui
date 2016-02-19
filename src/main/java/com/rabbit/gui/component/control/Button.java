@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import com.rabbit.gui.GuiFoundation;
 import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.component.Shiftable;
 import com.rabbit.gui.layout.LayoutComponent;
@@ -32,6 +33,7 @@ import net.minecraft.util.ResourceLocation;
 public class Button extends GuiWidget implements Shiftable {
 
 	protected boolean drawHoverText = false;
+	protected List<String> originalHoverText = new ArrayList();
 	protected List<String> hoverText = new ArrayList();
 	
     protected static final int DISABLED_STATE = 0;
@@ -50,6 +52,8 @@ public class Button extends GuiWidget implements Shiftable {
     protected boolean isEnabled = true;
 
     protected ButtonClickListener onClick;
+    
+	protected boolean drawToLeft;
    
     /**Dummy constructor. Used in layout*/
     protected Button(){}
@@ -83,6 +87,11 @@ public class Button extends GuiWidget implements Shiftable {
         GL11.glEnable(GL11.GL_BLEND);
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+    }
+    
+    protected void endRender(){
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     protected void drawButton(int state) {
@@ -203,5 +212,67 @@ public class Button extends GuiWidget implements Shiftable {
 
 	public List<String> getHoverText() {
 		return this.hoverText;
+	}
+	
+	protected void verifyHoverText(int mouseX, int mouseY) {
+		int tlineWidth = 0;
+		for (String line : this.originalHoverText) {
+			tlineWidth = TextRenderer.getFontRenderer().getStringWidth(line) > tlineWidth
+					? TextRenderer.getFontRenderer().getStringWidth(line) : tlineWidth;
+		}
+		int dWidth = GuiFoundation.proxy.getCurrentStage().width;
+		if (tlineWidth + mouseX > dWidth && mouseX + 1 > dWidth / 2) {
+			// the button is on the right half of the screen
+			this.drawToLeft = true;
+		}
+		List<String> newHoverText = new ArrayList();
+		if (drawToLeft) {
+			for (String line : this.originalHoverText) {
+				int lineWidth = TextRenderer.getFontRenderer().getStringWidth(line);
+				// if the line length is longer than the button is from the left
+				// side of the screen we have to split
+				if (lineWidth > mouseX) {
+					// the line is too long lets split it
+					String newString = "";
+					for (String substring : line.split(" ")) {
+						// we can fit the string, we are ok
+						if (TextRenderer.getFontRenderer().getStringWidth(newString)
+								+ TextRenderer.getFontRenderer().getStringWidth(substring) < mouseX) {
+							newString += substring + " ";
+						} else {
+							newHoverText.add(newString);
+							newString = substring + " ";
+						}
+					}
+					newHoverText.add(newString);
+				} else {
+					newHoverText.add(line);
+				}
+			}
+		} else {
+			for (String line : this.originalHoverText) {
+				int lineWidth = TextRenderer.getFontRenderer().getStringWidth(line);
+				// we just need to know what the right most side of the button
+				// is
+				if (lineWidth > dWidth - mouseX) {
+					// the line is too long lets split it
+					String newString = "";
+					for (String substring : line.split(" ")) {
+						// we can fit the string, we are ok
+						if (TextRenderer.getFontRenderer().getStringWidth(newString) + TextRenderer.getFontRenderer()
+								.getStringWidth(substring) < dWidth - mouseX) {
+							newString += substring + " ";
+						} else {
+							newHoverText.add(newString);
+							newString = substring + " ";
+						}
+					}
+					newHoverText.add(newString);
+				} else {
+					newHoverText.add(line);
+				}
+			}
+		}
+		this.hoverText = newHoverText;
 	}
 }
