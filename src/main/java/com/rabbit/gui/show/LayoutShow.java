@@ -4,10 +4,14 @@ import java.util.List;
 
 import com.rabbit.gui.layout.LayoutComponentWrapper;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 /**
  * Represents show which has been generated from layout
  *
  */
+@SideOnly(Side.CLIENT)
 public class LayoutShow extends Show {
 
     /**

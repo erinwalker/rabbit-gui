@@ -2,11 +2,15 @@ package com.rabbit.gui.component;
 
 import com.rabbit.gui.base.WidgetContainer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 /**
  * Represents components of the screen
  * 
  * @author RedEnergy
  */
+@SideOnly(Side.CLIENT)
 public interface IGui {
     
     /**

@@ -6,11 +6,15 @@ import com.rabbit.gui.component.control.ScrollBar;
 import com.rabbit.gui.component.list.entries.ListEntry;
 import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.utils.Geometry;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
 import org.lwjgl.opengl.GL11;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class ScrollableDisplayList extends DisplayList {
 
@@ -52,9 +56,9 @@ public class ScrollableDisplayList extends DisplayList {
 			ListEntry entry = content.get(i);
 			int slotPosX = getX();
 			int slotPosY = ((getY() + i * slotHeight)
-					-  (!canFit()? (int) ((this.slotHeight * scrollBar.getProgress() * this.content.size())
+					- (int) ((this.slotHeight * scrollBar.getProgress() * this.content.size())
 							- ((this.height - this.slotHeight) * (scrollBar.getProgress())
-									/ 1)) : 0));
+									/ 1)));
 			int slotWidth = this.width;
 			int slotHeight = this.slotHeight;
 			if (slotPosY < getY() + this.height && slotPosY + slotHeight > getY()) {
@@ -63,7 +67,7 @@ public class ScrollableDisplayList extends DisplayList {
 				Minecraft mc = Minecraft.getMinecraft();
 				GL11.glScissor(getX() * scale, mc.displayHeight - (getY() + getHeight()) * scale, getWidth() * scale,
 						getHeight() * scale);
-		    	GlStateManager.resetColor();
+				GlStateManager.resetColor();
 				entry.onDraw(this, slotPosX, slotPosY, slotWidth, slotHeight, mouseX, mouseY);
 				GL11.glDisable(GL11.GL_SCISSOR_TEST);
 				GL11.glPopMatrix();
@@ -85,7 +89,7 @@ public class ScrollableDisplayList extends DisplayList {
 			int slotHeight = this.slotHeight;
 			boolean scrollbarActive = scrollBar.isScrolling() && scrollBar.isVisible();
 			if (slotPosY + slotHeight <= getY() + this.height && slotPosY >= getY() && !scrollbarActive) {
-				boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight-1, mouseX,
+				boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight, mouseX,
 						mouseY);
 				if (clickedOnEntry)
 					entry.onClick(this, mouseX, mouseY);
@@ -102,9 +106,7 @@ public class ScrollableDisplayList extends DisplayList {
 	}
 
 	private int getScrollerSize() {
-		// return (int) (1F * this.height / (this.content.size() *
-		// this.slotHeight) * (this.height - 4));
-		return (int) Math.min(Math.max((int) (1F * this.height / (this.content.size() * this.slotHeight) * (this.height - 4)) * 2, 15), this.height*.95);
+		return (int) Math.min(Math.max((int) (1F * this.height / (this.content.size() * this.slotHeight) * (this.height - 4)) * 2, 15), this.height*.8);
 	}
 
 }

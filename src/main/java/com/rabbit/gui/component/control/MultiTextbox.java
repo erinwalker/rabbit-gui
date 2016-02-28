@@ -6,8 +6,11 @@ import java.util.List;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextRenderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.util.MathHelper;
 
+@SideOnly(Side.CLIENT)
 public class MultiTextbox extends TextBox {
 
     private ScrollBar scrollBar;

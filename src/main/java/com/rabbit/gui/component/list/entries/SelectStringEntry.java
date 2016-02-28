@@ -4,6 +4,10 @@ import com.rabbit.gui.component.list.DisplayList;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class SelectStringEntry extends SelectListEntry {
 
     /**

@@ -10,9 +10,12 @@ import org.lwjgl.opengl.GL11;
 import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.render.Renderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
+@SideOnly(Side.CLIENT)
 public class Picture extends GuiWidget {
     
     private ResourceLocation texture;

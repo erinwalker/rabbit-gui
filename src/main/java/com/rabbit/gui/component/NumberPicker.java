@@ -3,8 +3,13 @@ package com.rabbit.gui.component;
 import com.rabbit.gui.component.control.Button;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.input.Keyboard;
 
+@SideOnly(Side.CLIENT)
 public class NumberPicker extends GuiWidget {
 
     protected int jumpValue = 10;

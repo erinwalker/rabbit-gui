@@ -7,9 +7,14 @@ import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
 
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.Arrays;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class DisplayList extends GuiWidget implements WidgetList<ListEntry>{
 
@@ -79,6 +84,7 @@ public class DisplayList extends GuiWidget implements WidgetList<ListEntry>{
             int slotPosY = getY() + i * slotHeight;
             int slotWidth = this.width;
             int slotHeight = this.slotHeight;
+        	GlStateManager.resetColor();
             entry.onDraw(this, slotPosX, slotPosY, slotWidth, slotHeight, mouseX, mouseY);
         }
     }

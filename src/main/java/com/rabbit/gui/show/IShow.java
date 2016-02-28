@@ -4,6 +4,10 @@ import com.rabbit.gui.base.Stage;
 import com.rabbit.gui.component.IBackground;
 import com.rabbit.gui.component.IGui;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public interface IShow extends IGui{
     
     void onInit();

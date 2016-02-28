@@ -5,9 +5,13 @@ import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.awt.*;
 import java.util.stream.DoubleStream;
 
+@SideOnly(Side.CLIENT)
 public class PieChart extends GuiWidget {
 
     /**

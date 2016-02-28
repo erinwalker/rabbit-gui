@@ -2,9 +2,13 @@ package com.rabbit.gui.component.grid.entries;
 
 import com.rabbit.gui.component.grid.Grid;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 /**
  * Entry of DisplayList component
  */
+@SideOnly(Side.CLIENT)
 public interface GridEntry{
 
     /**

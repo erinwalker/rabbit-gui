@@ -13,9 +13,13 @@ import net.minecraft.util.ResourceLocation;
 
 import com.rabbit.gui.render.Renderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 /**
  * Implementation of the ListEntry witch draws the given string in the center of entry slot
  */
+@SideOnly(Side.CLIENT)
 public class PictureGridEntry implements GridEntry {
     
 	 /**

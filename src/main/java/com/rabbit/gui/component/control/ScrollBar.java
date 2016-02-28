@@ -6,10 +6,12 @@ import com.rabbit.gui.component.GuiWidget;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
-
+@SideOnly(Side.CLIENT)
 public class ScrollBar extends GuiWidget {
 
     protected float scrolled = 0;

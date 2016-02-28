@@ -7,9 +7,13 @@ import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.utils.Geometry;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.Arrays;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class Grid extends GuiWidget implements WidgetList<GridEntry> {
 

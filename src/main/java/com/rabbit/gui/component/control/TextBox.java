@@ -9,9 +9,12 @@ import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextRenderer;
 import com.rabbit.gui.utils.ControlCharacters;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatAllowedCharacters;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class TextBox extends GuiWidget implements Shiftable {
 

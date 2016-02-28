@@ -2,8 +2,9 @@ package com.rabbit.gui.base;
 
 import com.rabbit.gui.component.IGui;
 import com.rabbit.gui.show.IShow;
-import com.rabbit.gui.show.Show;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
@@ -11,6 +12,7 @@ import org.lwjgl.input.Keyboard;
 import java.io.IOException;
 import java.util.Stack;
 
+@SideOnly(Side.CLIENT)
 public class Stage extends GuiScreen{
 
     /**
@@ -104,7 +106,6 @@ public class Stage extends GuiScreen{
      * Displays previously opened show <br>
      * If current show is the only opened show this stage will be closed <br>
      * If history is empty nothing will happen
-     * @return 
      */
     public void displayPrevious(){
         if(getShowHistory().size() != 0){
@@ -115,18 +116,6 @@ public class Stage extends GuiScreen{
                 display(getShowHistory().pop()); //remove and open previous
             }
         }
-    }
-    
-    public Show getPrevious(){
-        if(getShowHistory().size() != 0){
-            if(getShowHistory().size() == 1){
-                return null;
-            } else {
-                getShowHistory().pop(); //remove current
-                return (Show) getShowHistory().pop();
-            }
-        }
-		return null;
     }
 
     /**

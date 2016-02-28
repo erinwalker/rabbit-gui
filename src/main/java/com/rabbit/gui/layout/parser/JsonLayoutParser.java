@@ -33,12 +33,15 @@ import com.rabbit.gui.layout.argument.LayoutArgument;
 import com.rabbit.gui.layout.argument.LayoutCalculatableArgument;
 import com.rabbit.gui.show.LayoutShow;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
 /**
  * Generates show from json file
  */
+@SideOnly(Side.CLIENT)
 public class JsonLayoutParser implements LayoutParser {
 
     @Override

@@ -12,8 +12,11 @@ import com.rabbit.gui.base.WidgetContainer;
 import com.rabbit.gui.component.IBackground;
 import com.rabbit.gui.component.IGui;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.util.StringUtils;
 
+@SideOnly(Side.CLIENT)
 public abstract class Show implements IShow, WidgetContainer{
 
     protected List<IGui> components = new ArrayList();

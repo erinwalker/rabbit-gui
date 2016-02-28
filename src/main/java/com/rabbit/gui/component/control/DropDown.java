@@ -14,8 +14,11 @@ import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextRenderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.util.ResourceLocation;
 
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class DropDown<T> extends GuiWidget implements WidgetList<T>, Shiftable {
 

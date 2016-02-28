@@ -9,6 +9,10 @@ import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 @LayoutComponent
 public class TextLabel extends GuiWidget implements Shiftable {
 

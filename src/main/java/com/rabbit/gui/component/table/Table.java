@@ -8,8 +8,11 @@ import com.rabbit.gui.render.Renderer;
 import com.rabbit.gui.render.TextAlignment;
 import com.rabbit.gui.render.TextRenderer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.util.EnumChatFormatting;
 
+@SideOnly(Side.CLIENT)
 public class Table extends GuiWidget {
 
     protected List<Row> rows;

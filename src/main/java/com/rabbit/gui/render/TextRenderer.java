@@ -2,9 +2,12 @@ package com.rabbit.gui.render;
 
 import java.awt.Color;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
+@SideOnly(Side.CLIENT)
 public class TextRenderer {
 
     /**

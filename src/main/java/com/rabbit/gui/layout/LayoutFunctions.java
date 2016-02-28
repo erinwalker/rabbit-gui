@@ -3,10 +3,13 @@ package com.rabbit.gui.layout;
 import com.rabbit.gui.base.Stage;
 import com.rabbit.gui.show.IShow;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.objecthunter.exp4j.function.Function;
 
+@SideOnly(Side.CLIENT)
 public class LayoutFunctions {
 
     public static final Function width = new Function("width", 0){

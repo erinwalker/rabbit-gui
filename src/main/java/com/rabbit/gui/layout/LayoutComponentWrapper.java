@@ -11,6 +11,10 @@ import com.rabbit.gui.layout.argument.LayoutArgument;
 import com.rabbit.gui.layout.argument.LayoutCalculatableArgument;
 import com.rabbit.gui.show.IShow;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class LayoutComponentWrapper {
     private Class type;
     private Set<ILayoutArgument> args;
