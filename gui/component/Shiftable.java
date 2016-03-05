@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public interface Shiftable {
-    public void shiftX(int x);
-    
-    public void shiftY(int y);
+	public void shiftX(int x);
+
+	public void shiftY(int y);
 }

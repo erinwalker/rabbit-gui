@@ -11,4 +11,5 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LayoutComponent {}
+public @interface LayoutComponent {
+}

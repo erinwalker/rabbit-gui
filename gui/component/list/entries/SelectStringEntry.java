@@ -10,43 +10,47 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class SelectStringEntry extends SelectListEntry {
 
-    /**
-     * String which would be drawn in the center of the entry <br>
-     * If it doesn't fits into slot width it would be trimmed
-     */
-    private final String title;
+	public static interface OnClickListener {
+		void onClick(DisplayList list, int mouseX, int mouseY);
+	}
 
-    /**
-     * Listener which would be called when user click the entry
-     */
-    private OnClickListener listener;
+	/**
+	 * String which would be drawn in the center of the entry <br>
+	 * If it doesn't fits into slot width it would be trimmed
+	 */
+	private final String title;
 
-    public SelectStringEntry(String title){
-        this(title, null);
-    }
+	/**
+	 * Listener which would be called when user click the entry
+	 */
+	private OnClickListener listener;
 
-    public SelectStringEntry(String title, OnClickListener listener){
-        this.title = title;
-        this.listener = listener;
-    }
+	public SelectStringEntry(String title) {
+		this(title, null);
+	}
 
-    @Override
-    public void onDraw(DisplayList list, int posX, int posY, int width, int height, int mouseX, int mouseY) {
-        super.onDraw(list, posX, posY, width, height, mouseX, mouseY);
-        TextRenderer.renderString(posX + width / 2, posY + height / 2 - 5, TextRenderer.getFontRenderer().trimStringToWidth(title, width), TextAlignment.CENTER);
-    }
+	public SelectStringEntry(String title, OnClickListener listener) {
+		this.title = title;
+		this.listener = listener;
+	}
 
-    @Override
-    public void onClick(DisplayList list, int mouseX, int mouseY) {
-        super.onClick(list, mouseX, mouseY);
-        if(listener != null) listener.onClick(list, mouseX, mouseY);
-    }
+	public String getTitle() {
+		return this.title;
+	}
 
-    public static interface OnClickListener{
-        void onClick(DisplayList list, int mouseX, int mouseY);
-    }
-    
-    public String getTitle() {
-        return this.title;
-    }
+	@Override
+	public void onClick(DisplayList list, int mouseX, int mouseY) {
+		super.onClick(list, mouseX, mouseY);
+		if (this.listener != null) {
+			this.listener.onClick(list, mouseX, mouseY);
+		}
+	}
+
+	@Override
+	public void onDraw(DisplayList list, int posX, int posY, int width, int height,
+			int mouseX, int mouseY) {
+		super.onDraw(list, posX, posY, width, height, mouseX, mouseY);
+		TextRenderer.renderString(posX + (width / 2), (posY + (height / 2)) - 5,
+				TextRenderer.getFontRenderer().trimStringToWidth(this.title, width), TextAlignment.CENTER);
+	}
 }

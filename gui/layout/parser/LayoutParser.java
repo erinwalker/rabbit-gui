@@ -13,12 +13,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public interface LayoutParser {
-    
-    /**
-     * Returns parsed show
-     * @param path - location of parsable file
-     * @return parsed show
-     */
-    LayoutShow from(URI path);
+
+	/**
+	 * Returns parsed show
+	 *
+	 * @param path
+	 *            - location of parsable file
+	 * @return parsed show
+	 */
+	LayoutShow from(URI path);
 
 }

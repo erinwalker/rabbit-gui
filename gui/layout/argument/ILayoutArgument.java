@@ -5,6 +5,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public interface ILayoutArgument {
-    
-    String fieldName();
+
+	String fieldName();
 }

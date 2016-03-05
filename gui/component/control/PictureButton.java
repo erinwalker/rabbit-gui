@@ -2,6 +2,7 @@ package com.rabbit.gui.component.control;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.GL11;
@@ -9,10 +10,10 @@ import org.lwjgl.opengl.GL11;
 import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 @LayoutComponent
@@ -22,12 +23,8 @@ public class PictureButton extends Button {
 	private int imageWidth;
 	private int imageHeight;
 
-	/** Dummy constructor. Used in layout */
-	private PictureButton() {
-		super();
-	}
-
-	public PictureButton(int xPos, int yPos, int width, int height, ResourceLocation texture) {
+	public PictureButton(int xPos, int yPos, int width, int height,
+			ResourceLocation texture) {
 		super(xPos, yPos, width, height, "");
 		this.pictureTexture = texture;
 		try {
@@ -41,36 +38,31 @@ public class PictureButton extends Button {
 
 	}
 
+	public ResourceLocation getPictureTexture() {
+		return this.pictureTexture;
+	}
+
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
-		if (isVisible()) {
+		if (this.isVisible()) {
 			GL11.glPushMatrix();
-			prepareRender();
-			if (!isEnabled()) {
-				drawButton(DISABLED_STATE);
-				renderPicture();
-			} else if (isButtonUnderMouse(mouseX, mouseY)) {
-				drawButton(HOVER_STATE);
-				renderPicture();
+			this.prepareRender();
+			if (!this.isEnabled()) {
+				this.drawButton(DISABLED_STATE);
+				this.renderPicture();
+			} else if (this.isButtonUnderMouse(mouseX, mouseY)) {
+				this.drawButton(HOVER_STATE);
+				this.renderPicture();
 				if (this.drawHoverText) {
 					Renderer.drawxHoveringText(this.hoverText, mouseX, mouseY);
 				}
 			} else {
-				drawButton(IDLE_STATE);
-				renderPicture();
+				this.drawButton(IDLE_STATE);
+				this.renderPicture();
 			}
-			endRender();
+			this.endRender();
 			GL11.glPopMatrix();
 		}
-	}
-
-	public ResourceLocation getPictureTexture() {
-		return pictureTexture;
-	}
-
-	public PictureButton setPictureTexture(ResourceLocation res) {
-		this.pictureTexture = res;
-		return this;
 	}
 
 	private void renderPicture() {
@@ -79,10 +71,15 @@ public class PictureButton extends Button {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		Minecraft.getMinecraft().renderEngine.bindTexture(pictureTexture);
-		Renderer.drawTexturedModalRect(getX() + 1, getY(), 0, 0, getWidth(), getHeight(), getWidth() - 2,
-				getHeight() - 2, 0);
+		Minecraft.getMinecraft().renderEngine.bindTexture(this.pictureTexture);
+		Renderer.drawTexturedModalRect(this.getX() + 1, this.getY(), 0, 0, this.getWidth(), this.getHeight(),
+				this.getWidth() - 2, this.getHeight() - 2, 0);
 		GL11.glPopMatrix();
+	}
+
+	public PictureButton setPictureTexture(ResourceLocation res) {
+		this.pictureTexture = res;
+		return this;
 	}
 
 }

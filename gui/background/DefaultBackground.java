@@ -8,8 +8,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class DefaultBackground extends ColorBackground {
 
-    public DefaultBackground() {
-        super(new Color(16, 16, 16, 192));
-    }
-    
+	public DefaultBackground() {
+		super(new Color(16, 16, 16, 192));
+	}
+
 }

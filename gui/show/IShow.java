@@ -8,27 +8,27 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public interface IShow extends IGui{
-    
-    void onInit();
- 
-    void setSize(int width, int height);
-    
-    Stage getStage();
-    
-    void setStage(Stage stage);
-    
-    String getTitle();
-    
-    void setTitle(String title);
-    
-    int getWidth();
-    
-    int getHeight();
-    
-    void setBackground(IBackground background);
+public interface IShow extends IGui {
 
-    boolean hasBeenInitialized();
+	IBackground getBackground();
 
-    IBackground getBackground();
+	int getHeight();
+
+	Stage getStage();
+
+	String getTitle();
+
+	int getWidth();
+
+	boolean hasBeenInitialized();
+
+	void onInit();
+
+	void setBackground(IBackground background);
+
+	void setSize(int width, int height);
+
+	void setStage(Stage stage);
+
+	void setTitle(String title);
 }

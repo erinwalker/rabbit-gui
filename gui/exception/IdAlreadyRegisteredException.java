@@ -6,12 +6,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class IdAlreadyRegisteredException extends RuntimeException {
 
-    public IdAlreadyRegisteredException() {
-        super();
-    }
+	public IdAlreadyRegisteredException() {
+		super();
+	}
 
-    public IdAlreadyRegisteredException(String message) {
-        super(message);
-    }
-    
+	public IdAlreadyRegisteredException(String message) {
+		super(message);
+	}
+
 }

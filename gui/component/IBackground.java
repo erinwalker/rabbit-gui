@@ -8,6 +8,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public interface IBackground {
-    
-    void onDraw(int width, int height, int mouseX, int mouseY, float partialTicks);        
+
+	void onDraw(int width, int height, int mouseX, int mouseY, float partialTicks);
 }

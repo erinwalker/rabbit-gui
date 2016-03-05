@@ -14,30 +14,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayoutShow extends Show {
 
-    /**
-     * Contains components which has been parsed from layout
-     */
-    private final List<LayoutComponentWrapper> layoutComponents;
+	/**
+	 * Contains components which has been parsed from layout
+	 */
+	private final List<LayoutComponentWrapper> layoutComponents;
 
-    public LayoutShow(List<LayoutComponentWrapper> components) {
-        super();
-        this.layoutComponents = components;
-    }
-    
-    public List<LayoutComponentWrapper> getLayoutComponents(){
-        return layoutComponents;
-    }
-    
-    @Override
-    public void setup(){
-        super.setup();
-        for(LayoutComponentWrapper com : layoutComponents){
-            try{
-                registerComponent(com.create(this));
-            } catch(Exception ex){
-                ex.printStackTrace();
-                throw new RuntimeException("Error while trying to create " + com.getType().getName() + " component");
-            }
-        }
-    }
+	public LayoutShow(List<LayoutComponentWrapper> components) {
+		super();
+		this.layoutComponents = components;
+	}
+
+	public List<LayoutComponentWrapper> getLayoutComponents() {
+		return this.layoutComponents;
+	}
+
+	@Override
+	public void setup() {
+		super.setup();
+		for (LayoutComponentWrapper com : this.layoutComponents) {
+			try {
+				this.registerComponent(com.create(this));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new RuntimeException("Error while trying to create " + com.getType().getName() + " component");
+			}
+		}
+	}
 }
