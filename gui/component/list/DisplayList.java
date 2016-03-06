@@ -29,8 +29,7 @@ public class DisplayList extends GuiWidget implements WidgetList<ListEntry> {
 	protected DisplayList() {
 	}
 
-	public DisplayList(int xPos, int yPos, int width, int height, int slotHeight,
-			List<ListEntry> content) {
+	public DisplayList(int xPos, int yPos, int width, int height, int slotHeight, List<ListEntry> content) {
 		super(xPos, yPos, width, height);
 		this.slotHeight = slotHeight;
 		this.content = content;
@@ -85,8 +84,7 @@ public class DisplayList extends GuiWidget implements WidgetList<ListEntry> {
 			int slotPosY = this.getY() + (i * this.slotHeight);
 			int slotWidth = this.width;
 			int slotHeight = this.slotHeight;
-			boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight, mouseX,
-					mouseY);
+			boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight, mouseX, mouseY);
 			if (clickedOnEntry) {
 				entry.onClick(this, mouseX, mouseY);
 			}

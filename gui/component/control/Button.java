@@ -42,7 +42,7 @@ public class Button extends GuiWidget implements Shiftable {
 	protected final static int DISABLED_STATE = 0;
 	protected final static int IDLE_STATE = 1;
 	protected final static int HOVER_STATE = 2;
-	
+
 	protected boolean drawHoverText = false;
 	protected List<String> originalHoverText = new ArrayList<String>();
 

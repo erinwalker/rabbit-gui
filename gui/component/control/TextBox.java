@@ -125,8 +125,7 @@ public class TextBox extends GuiWidget implements Shiftable {
 			String text = TextRenderer.getFontRenderer().trimStringToWidth(this.text.substring(this.scrollOffset),
 					this.isBackgroundVisible() ? this.getWidth() - 8 : this.getWidth());
 			boolean isCursorVisible = (cursorPosWithOffset >= 0) && (cursorPosWithOffset <= text.length());
-			boolean shouldRenderCursor = this.isFocused() && (((this.cursorCounter / 6) % 2) == 0)
-					&& isCursorVisible;
+			boolean shouldRenderCursor = this.isFocused() && (((this.cursorCounter / 6) % 2) == 0) && isCursorVisible;
 			int firstTextX = this.isBackgroundVisible() ? this.getX() + 4 : this.getX();
 			int textY = this.isBackgroundVisible() ? this.getY() + ((this.getHeight() - 8) / 2) : this.getY();
 			int secondTextX = firstTextX;
@@ -166,8 +165,7 @@ public class TextBox extends GuiWidget implements Shiftable {
 			}
 
 			if (selEnd != cursorPosWithOffset) {
-				int finishX = firstTextX
-						+ TextRenderer.getFontRenderer().getStringWidth(text.substring(0, selEnd));
+				int finishX = firstTextX + TextRenderer.getFontRenderer().getStringWidth(text.substring(0, selEnd));
 				this.renderSelectionRect(cursorX, textY - 1, finishX - 1,
 						textY + 1 + TextRenderer.getFontRenderer().FONT_HEIGHT);
 			}
@@ -314,8 +312,7 @@ public class TextBox extends GuiWidget implements Shiftable {
 		}
 	}
 
-	protected boolean handleMouseClick(int posX, int posY, int mouseButtonIndex,
-			boolean overlap) {
+	protected boolean handleMouseClick(int posX, int posY, int mouseButtonIndex, boolean overlap) {
 		boolean clicked = this.isTextBoxUnderMouse(posX, posY) && !overlap;
 		this.setIsFocused(clicked);
 		if (this.isFocused() && (mouseButtonIndex == 0)) {
@@ -514,8 +511,8 @@ public class TextBox extends GuiWidget implements Shiftable {
 			this.scrollOffset = this.getText().length();
 		}
 
-		String trimmed = TextRenderer.getFontRenderer()
-				.trimStringToWidth(this.getText().substring(this.scrollOffset), this.getWidth());
+		String trimmed = TextRenderer.getFontRenderer().trimStringToWidth(this.getText().substring(this.scrollOffset),
+				this.getWidth());
 		int length = trimmed.length() + this.scrollOffset;
 
 		if (pos == this.scrollOffset) {

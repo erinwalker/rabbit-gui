@@ -18,8 +18,7 @@ public class Geometry {
 		return new ScaledResolution(mc, mc.displayWidth, mc.displayHeight).getScaleFactor();
 	}
 
-	public static boolean isDotInArea(int areaX, int areaY, int areaWidth, int areaHeight,
-			int dotX, int dotY) {
+	public static boolean isDotInArea(int areaX, int areaY, int areaWidth, int areaHeight, int dotX, int dotY) {
 		return (dotX >= areaX) && (dotX <= (areaX + areaWidth)) && (dotY >= areaY) && (dotY <= (areaY + areaHeight));
 	}
 

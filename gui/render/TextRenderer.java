@@ -72,8 +72,7 @@ public class TextRenderer {
 	 * @param shadow
 	 * @return X position of rendered string
 	 */
-	public static int renderString(int xPos, int yPos, String text, Color color,
-			boolean shadow, TextAlignment align) {
+	public static int renderString(int xPos, int yPos, String text, Color color, boolean shadow, TextAlignment align) {
 		switch (align) {
 		case LEFT:
 			return getFontRenderer().drawString(text, xPos, yPos, color.getRGB(), shadow);
@@ -90,8 +89,7 @@ public class TextRenderer {
 	/**
 	 * See {@link #renderString(int, int, String, int, boolean)}
 	 */
-	public static int renderString(int xPos, int yPos, String text, Color color,
-			TextAlignment align) {
+	public static int renderString(int xPos, int yPos, String text, Color color, TextAlignment align) {
 		return renderString(xPos, yPos, text, color, false, align);
 	}
 

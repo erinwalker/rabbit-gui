@@ -152,13 +152,11 @@ public class DropDown<T> extends GuiWidget implements WidgetList<T>, Shiftable {
 		}
 	}
 
-	private void drawSlot(String item, int xPos, int yPos, int width, int height,
-			boolean background) {
+	private void drawSlot(String item, int xPos, int yPos, int width, int height, boolean background) {
 		this.drawSlot(item, xPos, yPos, width, height, background, 2);
 	}
 
-	private void drawSlot(String item, int xPos, int yPos, int width, int height,
-			boolean background, int drawOffset) {
+	private void drawSlot(String item, int xPos, int yPos, int width, int height, boolean background, int drawOffset) {
 		String text = TextRenderer.getFontRenderer().trimStringToWidth(item, width - drawOffset);
 		Color color = Color.white;
 		if (background) {

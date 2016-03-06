@@ -14,8 +14,7 @@ public class SelectScrollList extends ScrollableDisplayList {
 
 	protected List<SelectListEntry> content;
 
-	public SelectScrollList(int xPos, int yPos, int width, int height, int slotHeight,
-			List<ListEntry> content) {
+	public SelectScrollList(int xPos, int yPos, int width, int height, int slotHeight, List<ListEntry> content) {
 		super(xPos, yPos, width, height, slotHeight, content);
 	}
 

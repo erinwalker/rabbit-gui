@@ -146,8 +146,7 @@ public class MultiTextbox extends TextBox {
 	}
 
 	@Override
-	protected boolean handleMouseClick(int posX, int posY, int mouseButtonIndex,
-			boolean overlap) {
+	protected boolean handleMouseClick(int posX, int posY, int mouseButtonIndex, boolean overlap) {
 		boolean clicked = !overlap && this.isTextBoxUnderMouse(posX, posY);
 		this.setIsFocused(clicked);
 		if (this.isFocused() && (mouseButtonIndex == 0)) {
@@ -157,8 +156,7 @@ public class MultiTextbox extends TextBox {
 			this.setCursorPosition(
 					TextRenderer.getFontRenderer().trimStringToWidth(temp, lenght).length() + this.scrollOffset);
 			int x = posX - this.getX();
-			int y = ((posY - this.getY() - 4) / TextRenderer.getFontRenderer().FONT_HEIGHT)
-					+ this.getStartLineY();
+			int y = ((posY - this.getY() - 4) / TextRenderer.getFontRenderer().FONT_HEIGHT) + this.getStartLineY();
 			this.cursorPos = 0;
 			List<String> lines = this.getLines();
 			int charCount = 0;

@@ -42,8 +42,7 @@ public class PictureButtonGridEntry extends Button implements GridEntry {
 		this(width, height, texture, null);
 	}
 
-	public PictureButtonGridEntry(int width, int height, ResourceLocation texture,
-			OnClickListener listener) {
+	public PictureButtonGridEntry(int width, int height, ResourceLocation texture, OnClickListener listener) {
 		super(0, 0, width, height, "");
 		this.pictureTexture = texture;
 		try {
@@ -86,8 +85,7 @@ public class PictureButtonGridEntry extends Button implements GridEntry {
 	}
 
 	@Override
-	public void onDraw(Grid grid, int posX, int posY, int width, int height,
-			int mouseX, int mouseY) {
+	public void onDraw(Grid grid, int posX, int posY, int width, int height, int mouseX, int mouseY) {
 		if (this.getX() != posX) {
 			this.setX(posX);
 		}

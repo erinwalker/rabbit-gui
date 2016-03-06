@@ -47,8 +47,7 @@ public class SelectStringEntry extends SelectListEntry {
 	}
 
 	@Override
-	public void onDraw(DisplayList list, int posX, int posY, int width, int height,
-			int mouseX, int mouseY) {
+	public void onDraw(DisplayList list, int posX, int posY, int width, int height, int mouseX, int mouseY) {
 		super.onDraw(list, posX, posY, width, height, mouseX, mouseY);
 		TextRenderer.renderString(posX + (width / 2), (posY + (height / 2)) - 5,
 				TextRenderer.getFontRenderer().trimStringToWidth(this.title, width), TextAlignment.CENTER);

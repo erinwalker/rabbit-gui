@@ -18,8 +18,7 @@ public class ColorBackground implements IBackground {
 	}
 
 	@Override
-	public void onDraw(int width, int height, int mouseX, int mouseY,
-			float partialTicks) {
+	public void onDraw(int width, int height, int mouseX, int mouseY, float partialTicks) {
 		Renderer.drawRect(0, 0, width, height, this.color.getRGB());
 	}
 

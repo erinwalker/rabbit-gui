@@ -20,8 +20,7 @@ public class ScrollableDisplayList extends DisplayList {
 
 	protected ScrollBar scrollBar;
 
-	public ScrollableDisplayList(int xPos, int yPos, int width, int height,
-			int slotHeight, List<ListEntry> content) {
+	public ScrollableDisplayList(int xPos, int yPos, int width, int height, int slotHeight, List<ListEntry> content) {
 		super(xPos, yPos, width, height, slotHeight, content);
 	}
 

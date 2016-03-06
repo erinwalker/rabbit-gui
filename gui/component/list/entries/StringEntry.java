@@ -58,8 +58,7 @@ public class StringEntry implements ListEntry {
 	}
 
 	@Override
-	public void onDraw(DisplayList list, int posX, int posY, int width, int height,
-			int mouseX, int mouseY) {
+	public void onDraw(DisplayList list, int posX, int posY, int width, int height, int mouseX, int mouseY) {
 		if (this.selected) {
 			Renderer.drawRect(posX, posY, posX + width, posY + height, 0x7FA9A9FF);
 		}

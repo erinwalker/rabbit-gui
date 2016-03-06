@@ -39,8 +39,7 @@ public class PictureGridEntry implements GridEntry {
 		this(width, height, texture, null);
 	}
 
-	public PictureGridEntry(int width, int height, ResourceLocation texture,
-			OnClickListener listener) {
+	public PictureGridEntry(int width, int height, ResourceLocation texture, OnClickListener listener) {
 		this.texture = texture;
 		try {
 			BufferedImage image = ImageIO
@@ -61,8 +60,7 @@ public class PictureGridEntry implements GridEntry {
 	}
 
 	@Override
-	public void onDraw(Grid grid, int posX, int posY, int width, int height,
-			int mouseX, int mouseY) {
+	public void onDraw(Grid grid, int posX, int posY, int width, int height, int mouseX, int mouseY) {
 		GL11.glPushMatrix();
 		GL11.glColor4f(1, 1, 1, 1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);

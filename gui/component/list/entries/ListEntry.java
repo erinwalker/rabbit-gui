@@ -42,8 +42,7 @@ public interface ListEntry {
 	 * @param mouseY
 	 *            - user's current mouse y
 	 */
-	public default void onDraw(DisplayList list, int posX, int posY, int width,
-			int height, int mouseX, int mouseY) {
+	public default void onDraw(DisplayList list, int posX, int posY, int width, int height, int mouseX, int mouseY) {
 	}
 
 	/**

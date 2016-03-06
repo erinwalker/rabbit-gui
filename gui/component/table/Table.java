@@ -47,8 +47,7 @@ public class Table extends GuiWidget {
 		return this.horizontalLines;
 	}
 
-	private void drawRow(int xPos, int yPos, int width, int height, int oneLineHeight,
-			Row row) {
+	private void drawRow(int xPos, int yPos, int width, int height, int oneLineHeight, Row row) {
 		TextRenderer.renderString(xPos + (width / 2), yPos + 5, EnumChatFormatting.UNDERLINE + row.getName(),
 				TextAlignment.CENTER);
 		List<String> lines = row.getStringContent();

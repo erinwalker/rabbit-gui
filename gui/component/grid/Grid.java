@@ -36,8 +36,7 @@ public class Grid extends GuiWidget implements WidgetList<GridEntry> {
 	protected Grid() {
 	}
 
-	public Grid(int xPos, int yPos, int width, int height, int slotWidth,
-			int slotHeight, List<GridEntry> content) {
+	public Grid(int xPos, int yPos, int width, int height, int slotWidth, int slotHeight, List<GridEntry> content) {
 		super(xPos, yPos, width, height);
 		this.slotHeight = slotHeight;
 		this.slotWidth = slotWidth;
@@ -100,8 +99,7 @@ public class Grid extends GuiWidget implements WidgetList<GridEntry> {
 			int slotPosY = this.getY() + ((i / this.xSlots) * this.slotHeight);
 			int slotWidth = this.width;
 			int slotHeight = this.slotHeight;
-			boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight, mouseX,
-					mouseY);
+			boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight, mouseX, mouseY);
 			if (clickedOnEntry) {
 				entry.onClick(this, mouseX, mouseY);
 			}

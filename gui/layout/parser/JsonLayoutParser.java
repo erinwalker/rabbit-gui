@@ -94,8 +94,7 @@ public class JsonLayoutParser implements LayoutParser {
 		return result;
 	}
 
-	private List<ILayoutArgument> getArguments(Map<String, JsonElement> fields,
-			Map<String, Class<?>> allowedFields) {
+	private List<ILayoutArgument> getArguments(Map<String, JsonElement> fields, Map<String, Class<?>> allowedFields) {
 		List<ILayoutArgument> result = Lists.newArrayList();
 		for (Entry<String, JsonElement> entry : fields.entrySet()) {
 			Class<?> fieldType = allowedFields.get(entry.getKey());

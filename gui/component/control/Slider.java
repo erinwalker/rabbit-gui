@@ -48,8 +48,7 @@ public class Slider extends GuiWidget {
 	 */
 	private void calculateScroller(int pos) {
 		if (this.isScrolling) {
-			float magic = (((pos - this.getX()) + 2) - 10F)
-					/ ((this.getX() + this.width) - (this.getX() + 2) - 15.0F);
+			float magic = (((pos - this.getX()) + 2) - 10F) / ((this.getX() + this.width) - (this.getX() + 2) - 15.0F);
 			this.updateProgress(magic - this.scrolled);
 		}
 	}

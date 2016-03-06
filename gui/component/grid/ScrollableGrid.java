@@ -19,8 +19,8 @@ public class ScrollableGrid extends Grid {
 
 	protected ScrollBar scrollBar;
 
-	public ScrollableGrid(int xPos, int yPos, int width, int height, int slotWidth,
-			int slotHeight, List<GridEntry> content) {
+	public ScrollableGrid(int xPos, int yPos, int width, int height, int slotWidth, int slotHeight,
+			List<GridEntry> content) {
 		super(xPos, yPos, width, height, slotWidth, slotHeight, content);
 	}
 

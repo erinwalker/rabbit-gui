@@ -6,10 +6,13 @@ import java.util.stream.IntStream;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fml.relauncher.Side;
@@ -51,9 +54,8 @@ public class Renderer {
 	 * @param rightBorder
 	 *            the size of the box's right border
 	 */
-	public static void drawContinuousTexturedBox(int x, int y, int u, int v, int width,
-			int height, int textureWidth, int textureHeight, int topBorder,
-			int bottomBorder, int leftBorder, int rightBorder) {
+	public static void drawContinuousTexturedBox(int x, int y, int u, int v, int width, int height, int textureWidth,
+			int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glEnable(GL11.GL_BLEND);
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
@@ -110,8 +112,8 @@ public class Renderer {
 	 * @param color
 	 *            - rgb color of the arc
 	 */
-	public static void drawFilledArc(int xCenter, int yCenter, int radius, double startDegrees,
-			double finishDegrees, int color) {
+	public static void drawFilledArc(int xCenter, int yCenter, int radius, double startDegrees, double finishDegrees,
+			int color) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		glColorRGB(color);
@@ -145,8 +147,7 @@ public class Renderer {
 	 * @param secondColor
 	 *            - second gradient color
 	 */
-	public static void drawGradient(int xTop, int yTop, int xBot, int yBot,
-			int firstColor, int secondColor) {
+	public static void drawGradient(int xTop, int yTop, int xBot, int yBot, int firstColor, int secondColor) {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -165,6 +166,19 @@ public class Renderer {
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+	}
+
+	/**
+	 * Draw a 1 pixel wide horizontal line. Args: x1, x2, y, color
+	 */
+	public static void drawHorizontalLine(int startX, int endX, int y, int color) {
+		if (endX < startX) {
+			int i1 = startX;
+			startX = endX;
+			endX = i1;
+		}
+
+		drawRect(startX, y, endX + 1, y + 1, color);
 	}
 
 	public static void drawHoveringText(List<String> content, int xPos, int yPos) {
@@ -245,8 +259,7 @@ public class Renderer {
 	 * @param width
 	 *            - line width
 	 */
-	public static void drawLine(int fromX, int fromY, int toX, int toY, int color,
-			float width) {
+	public static void drawLine(int fromX, int fromY, int toX, int toY, int color, float width) {
 		GL11.glPushMatrix();
 		glColorRGB(color);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -297,8 +310,7 @@ public class Renderer {
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	public static void drawRectWithSpecialGL(int xTop, int yTop, int xBot, int yBot, int color,
-			Runnable specialGL) {
+	public static void drawRectWithSpecialGL(int xTop, int yTop, int xBot, int yBot, int color, Runnable specialGL) {
 		int temp;
 		if (xTop < xBot) {
 			temp = xTop;
@@ -343,8 +355,7 @@ public class Renderer {
 	 * @param height
 	 *            - height of rectangle
 	 */
-	public static void drawTexturedModalRect(int posX, int posY, int uPos, int vPos,
-			int width, int height) {
+	public static void drawTexturedModalRect(int posX, int posY, int uPos, int vPos, int width, int height) {
 		float f = 0.00390625F;
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
@@ -369,8 +380,8 @@ public class Renderer {
 	 * @param height
 	 * @param zLevel
 	 */
-	public static void drawTexturedModalRect(int xPos, int yPos, int u, int v,
-			int imageWidth, int imageHeight, int width, int height, float zLevel) {
+	public static void drawTexturedModalRect(int xPos, int yPos, int u, int v, int imageWidth, int imageHeight,
+			int width, int height, float zLevel) {
 		float f = 1F / width;
 		float f1 = 1F / height;
 		Tessellator tessellator = Tessellator.getInstance();
@@ -381,6 +392,23 @@ public class Renderer {
 				(v + imageHeight) * f1);
 		renderer.addVertexWithUV(xPos + imageWidth, yPos, zLevel, (u + imageWidth) * f, v * f1);
 		renderer.addVertexWithUV(xPos, yPos, zLevel, u * f, v * f1);
+		tessellator.draw();
+	}
+
+	/**
+	 * Draws a texture rectangle using the texture currently bound to the
+	 * TextureManager
+	 */
+	public static void drawTexturedModalRect(int xCoord, int yCoord, TextureAtlasSprite textureSprite, int width,
+			int height) {
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+		worldrenderer.startDrawingQuads();
+		worldrenderer.addVertexWithUV(xCoord + 0, yCoord + height, 0, textureSprite.getMinU(), textureSprite.getMaxV());
+		worldrenderer.addVertexWithUV(xCoord + width, yCoord + height, 0, textureSprite.getMaxU(),
+				textureSprite.getMaxV());
+		worldrenderer.addVertexWithUV(xCoord + width, yCoord + 0, 0, textureSprite.getMaxU(), textureSprite.getMinV());
+		worldrenderer.addVertexWithUV(xCoord + 0, yCoord + 0, 0, textureSprite.getMinU(), textureSprite.getMinV());
 		tessellator.draw();
 	}
 
@@ -403,8 +431,7 @@ public class Renderer {
 	 * @param color
 	 *            - rgb color
 	 */
-	public static void drawTriangle(int leftX, int leftY, int topX, int topY, int rightX,
-			int rightY, int color) {
+	public static void drawTriangle(int leftX, int leftY, int topX, int topY, int rightX, int rightY, int color) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_BLEND);
@@ -420,6 +447,19 @@ public class Renderer {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
+	}
+
+	/**
+	 * Draw a 1 pixel wide vertical line. Args : x, y1, y2, color
+	 */
+	public static void drawVerticalLine(int x, int startY, int endY, int color) {
+		if (endY < startY) {
+			int i1 = startY;
+			startY = endY;
+			endY = i1;
+		}
+
+		drawRect(x, startY + 1, x + 1, endY, color);
 	}
 
 	public static void drawxHoveringText(List<String> content, int xPos, int yPos) {
@@ -466,6 +506,15 @@ public class Renderer {
 			GL11.glTranslatef(0, 0, -1);
 			GL11.glPopMatrix();
 		}
+	}
+
+	public static TextureAtlasSprite getIcon(Block block) {
+		return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes()
+				.getTexture(block.getDefaultState());
+	}
+
+	public static RenderItem getRenderItem() {
+		return Minecraft.getMinecraft().getRenderItem();
 	}
 
 	/**

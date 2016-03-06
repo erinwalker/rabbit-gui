@@ -35,8 +35,7 @@ public class TextLabel extends GuiWidget implements Shiftable {
 		this(xPos, yPos, width, height, text, TextAlignment.LEFT);
 	}
 
-	public TextLabel(int xPos, int yPos, int width, int height, String text,
-			TextAlignment align) {
+	public TextLabel(int xPos, int yPos, int width, int height, String text, TextAlignment align) {
 		super(xPos, yPos, width, height);
 		this.text = text;
 		this.alignment = align;
@@ -46,8 +45,7 @@ public class TextLabel extends GuiWidget implements Shiftable {
 		this(xPos, yPos, width, 9, text);
 	}
 
-	protected void drawAlignedLine(int x, int y, int width, String text,
-			TextAlignment alignment) {
+	protected void drawAlignedLine(int x, int y, int width, String text, TextAlignment alignment) {
 		if (alignment == TextAlignment.CENTER) {
 			x = x + (this.getWidth() / 2);
 		} else if (alignment == TextAlignment.RIGHT) {
@@ -64,8 +62,7 @@ public class TextLabel extends GuiWidget implements Shiftable {
 	}
 
 	protected void drawMultilined() {
-		List<String> displayLines = TextRenderer.getFontRenderer().listFormattedStringToWidth(this.text,
-				this.width);
+		List<String> displayLines = TextRenderer.getFontRenderer().listFormattedStringToWidth(this.text, this.width);
 		for (int i = 0; i < displayLines.size(); i++) {
 			String displayLine = displayLines.get(i);
 			int y = this.getY() + (i * TextRenderer.getFontRenderer().FONT_HEIGHT);

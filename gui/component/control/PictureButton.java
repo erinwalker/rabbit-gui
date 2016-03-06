@@ -23,8 +23,7 @@ public class PictureButton extends Button {
 	private int imageWidth;
 	private int imageHeight;
 
-	public PictureButton(int xPos, int yPos, int width, int height,
-			ResourceLocation texture) {
+	public PictureButton(int xPos, int yPos, int width, int height, ResourceLocation texture) {
 		super(xPos, yPos, width, height, "");
 		this.pictureTexture = texture;
 		try {

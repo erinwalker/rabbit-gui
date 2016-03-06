@@ -84,8 +84,7 @@ public class ScrollBar extends GuiWidget {
 					.bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_items.png"));
 			Renderer.drawContinuousTexturedBox(this.getX(), this.getY(), 174 - 1, 17 - 1, this.width, this.height,
 					14 + 2, 112 + 2, 2, 2, 2, 2);
-			int scrollerHeight = (int) (this.getY() + 2
-					+ (this.scrolled * (this.height - 4 - this.scrollerSize)));
+			int scrollerHeight = (int) (this.getY() + 2 + (this.scrolled * (this.height - 4 - this.scrollerSize)));
 			this.drawScroller(this.getX() + 2, scrollerHeight, this.width - 4, this.scrollerSize);
 		}
 	}

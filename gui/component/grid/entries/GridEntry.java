@@ -42,7 +42,6 @@ public interface GridEntry {
 	 * @param mouseY
 	 *            - user's current mouse y
 	 */
-	public default void onDraw(Grid grid, int posX, int posY, int width, int height,
-			int mouseX, int mouseY) {
+	public default void onDraw(Grid grid, int posX, int posY, int width, int height, int mouseX, int mouseY) {
 	}
 }
