@@ -133,7 +133,7 @@ public class PictureButtonGridEntry extends Button implements GridEntry {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft.getMinecraft().renderEngine.bindTexture(this.pictureTexture);
-		Renderer.drawTexturedModalRect(this.getX(), this.getY(), 0, 0, this.getWidth(), this.getHeight(),
+		Renderer.drawTexturedModalRect(this.getX(), this.getY(), 0, 0, this.getWidth()-2, this.getHeight()-2,
 				this.getWidth() - 2, this.getHeight() - 2, 0);
 		GL11.glPopMatrix();
 	}
