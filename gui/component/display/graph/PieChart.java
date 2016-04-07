@@ -47,30 +47,30 @@ public class PieChart extends GuiWidget {
 		this.size = size;
 		this.data = data;
 		this.titles = titles;
-		this.initialCalculate();
+		initialCalculate();
 	}
 
 	/**
 	 * Display angle for each data value
 	 */
 	public double[] getAngles() {
-		return this.angles;
+		return angles;
 	}
 
 	public double[] getData() {
-		return this.data;
+		return data;
 	}
 
 	public String[] getTitles() {
-		return this.titles;
+		return titles;
 	}
 
 	protected void initialCalculate() {
-		this.angles = new double[this.data.length];
-		double total = DoubleStream.of(this.data).sum();
+		angles = new double[data.length];
+		double total = DoubleStream.of(data).sum();
 
-		for (int i = 0; i < this.data.length; i++) {
-			this.angles[i] = (this.data[i] / total) * 360;
+		for (int i = 0; i < data.length; i++) {
+			angles[i] = (data[i] / total) * 360;
 		}
 	}
 
@@ -78,23 +78,23 @@ public class PieChart extends GuiWidget {
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
 		super.onDraw(mouseX, mouseY, partialTicks);
 		double prevAngle = 0;
-		for (int i = 0; i < this.data.length; i++) {
-			Color color = this.colors[i % this.colors.length];
-			Renderer.drawFilledArc(this.x + (this.width / 2), this.y + (this.height / 2), this.size / 2, prevAngle,
-					this.angles[i] + prevAngle, color.getRGB());
+		for (int i = 0; i < data.length; i++) {
+			Color color = colors[i % colors.length];
+			Renderer.drawFilledArc(x + (width / 2), y + (height / 2), size / 2, prevAngle, angles[i] + prevAngle,
+					color.getRGB());
 
-			if ((i < this.titles.length) && (this.angles[i] > 0)) { // if title
-																	// exist and
-																	// slice has
-																	// been
-																	// drawn
-				double textAngle = Math.toRadians(prevAngle + (this.angles[i] / 2));
-				int textX = (int) (this.x + (this.width / 2) + ((Math.sin(textAngle) * this.size) / 4));
-				int textY = (int) (this.y + (this.height / 2) + ((Math.cos(textAngle) * this.size) / 4));
+			if ((i < titles.length) && (angles[i] > 0)) { // if title
+															// exist and
+															// slice has
+															// been
+															// drawn
+				double textAngle = Math.toRadians(prevAngle + (angles[i] / 2));
+				int textX = (int) (x + (width / 2) + ((Math.sin(textAngle) * size) / 4));
+				int textY = (int) (y + (height / 2) + ((Math.cos(textAngle) * size) / 4));
 				textY -= 5;
-				TextRenderer.renderString(textX, textY, this.titles[i], TextAlignment.CENTER);
+				TextRenderer.renderString(textX, textY, titles[i], TextAlignment.CENTER);
 			}
-			prevAngle += this.angles[i];
+			prevAngle += angles[i];
 		}
 	}
 
@@ -108,7 +108,7 @@ public class PieChart extends GuiWidget {
 	 */
 	public PieChart setData(double[] data) {
 		this.data = data;
-		this.initialCalculate();
+		initialCalculate();
 		return this;
 	}
 

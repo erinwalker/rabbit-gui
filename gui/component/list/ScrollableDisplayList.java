@@ -29,29 +29,28 @@ public class ScrollableDisplayList extends DisplayList {
 	 * height
 	 */
 	private boolean canFit() {
-		return (this.content.size() * this.slotHeight) < this.height;
+		return (content.size() * slotHeight) < height;
 	}
 
 	@Override
 	protected void drawListContent(int mouseX, int mouseY) {
-		this.scrollBar.setVisiblie(!this.canFit());
-		this.scrollBar.setHandleMouseWheel(!this.canFit());
-		this.scrollBar.setScrollerSize(this.getScrollerSize());
+		scrollBar.setVisiblie(!canFit());
+		scrollBar.setHandleMouseWheel(!canFit());
+		scrollBar.setScrollerSize(getScrollerSize());
 		int scale = Geometry.computeScaleFactor();
-		for (int i = 0; i < this.content.size(); i++) {
-			ListEntry entry = this.content.get(i);
-			int slotPosX = this.getX();
-			int slotPosY = ((this.getY() + (i * this.slotHeight))
-					- (int) ((this.slotHeight * this.scrollBar.getProgress() * this.content.size())
-							- (((this.height - this.slotHeight) * (this.scrollBar.getProgress())) / 1)));
-			int slotWidth = this.width;
+		for (int i = 0; i < content.size(); i++) {
+			ListEntry entry = content.get(i);
+			int slotPosX = getX();
+			int slotPosY = ((getY() + (i * slotHeight)) - (int) ((slotHeight * scrollBar.getProgress() * content.size())
+					- (((height - slotHeight) * (scrollBar.getProgress())) / 1)));
+			int slotWidth = width;
 			int slotHeight = this.slotHeight;
-			if ((slotPosY < (this.getY() + this.height)) && ((slotPosY + slotHeight) > this.getY())) {
+			if ((slotPosY < (getY() + height)) && ((slotPosY + slotHeight) > getY())) {
 				GL11.glPushMatrix();
 				GL11.glEnable(GL11.GL_SCISSOR_TEST);
 				Minecraft mc = Minecraft.getMinecraft();
-				GL11.glScissor(this.getX() * scale, mc.displayHeight - ((this.getY() + this.getHeight()) * scale),
-						this.getWidth() * scale, this.getHeight() * scale);
+				GL11.glScissor(getX() * scale, mc.displayHeight - ((getY() + getHeight()) * scale), getWidth() * scale,
+						getHeight() * scale);
 				GlStateManager.resetColor();
 				entry.onDraw(this, slotPosX, slotPosY, slotWidth, slotHeight, mouseX, mouseY);
 				GL11.glDisable(GL11.GL_SCISSOR_TEST);
@@ -61,26 +60,22 @@ public class ScrollableDisplayList extends DisplayList {
 	}
 
 	private int getScrollerSize() {
-		return (int) Math.min(
-				Math.max((int) (((1F * this.height) / (this.content.size() * this.slotHeight)) * (this.height - 4)) * 2,
-						15),
-				this.height * .8);
+		return (int) Math.min(Math.max((int) (((1F * height) / (content.size() * slotHeight)) * (height - 4)) * 2, 15),
+				height * .8);
 	}
 
 	@Override
 	protected void handleMouseClickList(int mouseX, int mouseY) {
-		for (int i = 0; i < this.content.size(); i++) {
-			ListEntry entry = this.content.get(i);
+		for (int i = 0; i < content.size(); i++) {
+			ListEntry entry = content.get(i);
 			entry.setSelected(false);
-			int slotPosX = this.getX();
-			int slotPosY = ((this.getY() + (i * this.slotHeight))
-					- (int) ((this.slotHeight * this.scrollBar.getProgress() * this.content.size())
-							- (((this.height - this.slotHeight) * (this.scrollBar.getProgress())) / 1)));
-			int slotWidth = this.width;
+			int slotPosX = getX();
+			int slotPosY = ((getY() + (i * slotHeight)) - (int) ((slotHeight * scrollBar.getProgress() * content.size())
+					- (((height - slotHeight) * (scrollBar.getProgress())) / 1)));
+			int slotWidth = width;
 			int slotHeight = this.slotHeight;
-			boolean scrollbarActive = this.scrollBar.isScrolling() && this.scrollBar.isVisible();
-			if (((slotPosY + slotHeight) <= (this.getY() + this.height)) && (slotPosY >= this.getY())
-					&& !scrollbarActive) {
+			boolean scrollbarActive = scrollBar.isScrolling() && scrollBar.isVisible();
+			if (((slotPosY + slotHeight) <= (getY() + height)) && (slotPosY >= getY()) && !scrollbarActive) {
 				boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight, mouseX,
 						mouseY);
 				if (clickedOnEntry) {
@@ -99,15 +94,15 @@ public class ScrollableDisplayList extends DisplayList {
 	@Override
 	public void setup() {
 		super.setup();
-		int scrollerSize = this.height / (this.content.isEmpty() ? 1 : this.content.size());
+		int scrollerSize = height / (content.isEmpty() ? 1 : content.size());
 		if (scrollerSize < 10) {
 			scrollerSize = 10;
 		}
-		if (this.content.size() < (this.height / this.slotHeight)) {
-			scrollerSize = this.height - 4;
+		if (content.size() < (height / slotHeight)) {
+			scrollerSize = height - 4;
 		}
-		this.scrollBar = new ScrollBar((this.getX() + this.width) - 10, this.getY(), 10, this.height, scrollerSize);
-		this.registerComponent(this.scrollBar);
+		scrollBar = new ScrollBar((getX() + width) - 10, getY(), 10, height, scrollerSize);
+		registerComponent(scrollBar);
 	}
 
 }

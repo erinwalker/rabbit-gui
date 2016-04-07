@@ -58,8 +58,8 @@ public class CheckBox extends GuiWidget implements Shiftable {
 
 	public CheckBox(int xPos, int yPos, String title, boolean checked) {
 		super(xPos, yPos, WIDTH, HEIGHT);
-		this.text = title;
-		this.isChecked = checked;
+		text = title;
+		isChecked = checked;
 	}
 
 	void b(ResourceLocation loc) {
@@ -67,73 +67,70 @@ public class CheckBox extends GuiWidget implements Shiftable {
 	}
 
 	protected void drawButton() {
-		Renderer.drawContinuousTexturedBox(this.getX(), this.getY(), 0, 46, this.getWidth(), this.getHeight(), 200, 20,
-				2, 3, 2, 2);
+		Renderer.drawContinuousTexturedBox(getX(), getY(), 0, 46, getWidth(), getHeight(), 200, 20, 2, 3, 2, 2);
 	}
 
 	public ResourceLocation getButtonTexture() {
-		return this.buttonTexture;
+		return buttonTexture;
 	}
 
 	public CheckBoxStatusChangedListener getStatusChangedListener() {
-		return this.onStatusChangedListener;
+		return onStatusChangedListener;
 	}
 
 	public String getText() {
-		return this.text;
+		return text;
 	}
 
 	public boolean isButtonUnderMouse(int mouseX, int mouseY) {
-		return (mouseX >= this.getX()) && (mouseX <= (this.getX() + this.getWidth())) && (mouseY >= this.getY())
-				&& (mouseY <= (this.getY() + this.getHeight()));
+		return (mouseX >= getX()) && (mouseX <= (getX() + getWidth())) && (mouseY >= getY())
+				&& (mouseY <= (getY() + getHeight()));
 	}
 
 	public boolean isChecked() {
-		return this.isChecked;
+		return isChecked;
 	}
 
 	/**
 	 * @return <code> true</code> if button can be clicked
 	 */
 	public boolean isEnabled() {
-		return this.isEnabled;
+		return isEnabled;
 	}
 
 	/**
 	 * @return <code> true </code> if button would be rendered
 	 */
 	public boolean isVisible() {
-		return this.isVisible;
+		return isVisible;
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
-		if (this.isVisible()) {
-			this.prepareRender();
-			this.drawButton();
+		if (isVisible()) {
+			prepareRender();
+			drawButton();
 			Color color;
-			if (!this.isEnabled()) {
+			if (!isEnabled()) {
 				color = DISABLED_COLOR;
-			} else if (this.isButtonUnderMouse(mouseX, mouseY)) {
+			} else if (isButtonUnderMouse(mouseX, mouseY)) {
 				color = HOVER_COLOR;
 			} else {
 				color = COMMON_COLOR;
 			}
-			if (this.isChecked()) {
-				TextRenderer.renderString(this.getX() + (this.getWidth() / 2) + 1, this.getY() + 1, "x", color,
-						TextAlignment.CENTER);
+			if (isChecked()) {
+				TextRenderer.renderString(getX() + (getWidth() / 2) + 1, getY() + 1, "x", color, TextAlignment.CENTER);
 			}
-			TextRenderer.renderString(this.getX() + this.getWidth() + 2, (this.getY() + (this.getHeight() / 2)) - 3,
-					this.getText());
+			TextRenderer.renderString(getX() + getWidth() + 2, (getY() + (getHeight() / 2)) - 3, getText());
 		}
 	}
 
 	@Override
 	public boolean onMouseClicked(int posX, int posY, int mouseButtonIndex, boolean overlap) {
-		boolean clicked = this.isButtonUnderMouse(posX, posY) && this.isEnabled() && !overlap;
+		boolean clicked = isButtonUnderMouse(posX, posY) && isEnabled() && !overlap;
 		if (clicked) {
-			this.setIsCheckedWithNotify(!this.isChecked());
-			this.playClickSound();
+			setIsCheckedWithNotify(!isChecked());
+			playClickSound();
 		}
 		return clicked;
 	}
@@ -144,7 +141,7 @@ public class CheckBox extends GuiWidget implements Shiftable {
 	}
 
 	protected void prepareRender() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(this.getButtonTexture());
+		Minecraft.getMinecraft().getTextureManager().bindTexture(getButtonTexture());
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glEnable(GL11.GL_BLEND);
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
@@ -152,25 +149,25 @@ public class CheckBox extends GuiWidget implements Shiftable {
 	}
 
 	public CheckBox setCustomTexture(ResourceLocation res) {
-		this.buttonTexture = res;
+		buttonTexture = res;
 		return this;
 	}
 
 	@Override
 	public CheckBox setId(String id) {
-		this.assignId(id);
+		assignId(id);
 		return this;
 	}
 
 	public CheckBox setIsChecked(boolean state) {
-		this.isChecked = state;
+		isChecked = state;
 		return this;
 	}
 
 	public CheckBox setIsCheckedWithNotify(boolean state) {
-		this.setIsChecked(state);
-		if (this.getStatusChangedListener() != null) {
-			this.getStatusChangedListener().onStatusChanged(this);
+		setIsChecked(state);
+		if (getStatusChangedListener() != null) {
+			getStatusChangedListener().onStatusChanged(this);
 		}
 		return this;
 	}
@@ -186,7 +183,7 @@ public class CheckBox extends GuiWidget implements Shiftable {
 	}
 
 	public CheckBox setStatusChangedListener(CheckBoxStatusChangedListener listener) {
-		this.onStatusChangedListener = listener;
+		onStatusChangedListener = listener;
 		return this;
 	}
 
@@ -197,12 +194,12 @@ public class CheckBox extends GuiWidget implements Shiftable {
 
 	@Override
 	public void shiftX(int x) {
-		this.setX(this.getX() + x);
+		setX(getX() + x);
 	}
 
 	@Override
 	public void shiftY(int y) {
-		this.setY(this.getY() + y);
+		setY(getY() + y);
 	}
 
 }

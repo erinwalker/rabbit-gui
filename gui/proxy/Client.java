@@ -16,7 +16,7 @@ public class Client implements Proxy {
 	 */
 	@Override
 	public void display(IShow show) {
-		Stage current = this.getCurrentStage();
+		Stage current = getCurrentStage();
 		if (current != null) {
 			current.setShow(show);
 			current.reinitShow();

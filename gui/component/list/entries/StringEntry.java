@@ -42,32 +42,32 @@ public class StringEntry implements ListEntry {
 	public StringEntry(String title, OnClickListener listener) {
 		this.title = title;
 		this.listener = listener;
-		this.selected = false;
+		selected = false;
 	}
 
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	@Override
 	public void onClick(DisplayList list, int mouseX, int mouseY) {
-		this.selected = true;
-		if (this.listener != null) {
-			this.listener.onClick(this, list, mouseX, mouseY);
+		selected = true;
+		if (listener != null) {
+			listener.onClick(this, list, mouseX, mouseY);
 		}
 	}
 
 	@Override
 	public void onDraw(DisplayList list, int posX, int posY, int width, int height, int mouseX, int mouseY) {
-		if (this.selected) {
+		if (selected) {
 			Renderer.drawRect(posX, posY, posX + width, posY + height, 0x7FA9A9FF);
 		}
 		TextRenderer.renderString(posX + (width / 2), (posY + (height / 2)) - 5,
-				TextRenderer.getFontRenderer().trimStringToWidth(this.title, width), TextAlignment.CENTER);
+				TextRenderer.getFontRenderer().trimStringToWidth(title, width), TextAlignment.CENTER);
 	}
 
 	@Override
 	public void setSelected(boolean state) {
-		this.selected = state;
+		selected = state;
 	}
 }

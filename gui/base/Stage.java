@@ -40,7 +40,7 @@ public class Stage extends GuiScreen {
 	 *            - displayed show
 	 */
 	public Stage(IShow show) {
-		this.display(show);
+		display(show);
 	}
 
 	public void close() {
@@ -54,10 +54,10 @@ public class Stage extends GuiScreen {
 	 *            - show to display
 	 */
 	public void display(IShow show) {
-		this.setShow(show);
+		setShow(show);
 		show.setStage(this);
 		this.reinitShow(true);
-		this.pushHistory(this.show);
+		pushHistory(this.show);
 	}
 
 	/**
@@ -66,13 +66,13 @@ public class Stage extends GuiScreen {
 	 * If history is empty nothing will happen
 	 */
 	public void displayPrevious() {
-		if (this.getShowHistory().size() != 0) {
-			if (this.getShowHistory().size() == 1) {
-				this.close();
+		if (getShowHistory().size() != 0) {
+			if (getShowHistory().size() == 1) {
+				close();
 			} else {
-				this.getShowHistory().pop(); // remove current
-				this.display(this.getShowHistory().pop()); // remove and open
-															// previous
+				getShowHistory().pop(); // remove current
+				display(getShowHistory().pop()); // remove and open
+													// previous
 			}
 		}
 	}
@@ -90,7 +90,7 @@ public class Stage extends GuiScreen {
 	 */
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.show.onDraw(mouseX, mouseY, partialTicks);
+		show.onDraw(mouseX, mouseY, partialTicks);
 	}
 
 	/**
@@ -99,14 +99,14 @@ public class Stage extends GuiScreen {
 	 * @return currently display show
 	 */
 	public IShow getShow() {
-		return this.show;
+		return show;
 	}
 
 	/**
 	 * @return This stage history
 	 */
 	public Stack<IShow> getShowHistory() {
-		return this.showHistory;
+		return showHistory;
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class Stage extends GuiScreen {
 	@Override
 	public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
-		this.show.onMouseInput();
+		show.onMouseInput();
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class Stage extends GuiScreen {
 	 */
 	@Override
 	protected void keyTyped(char typedChar, int typedKeyIndex) {
-		this.show.onKeyTyped(typedChar, typedKeyIndex);
+		show.onKeyTyped(typedChar, typedKeyIndex);
 		if (typedKeyIndex == Keyboard.KEY_ESCAPE) {
 			Minecraft.getMinecraft().setIngameFocus();
 		}
@@ -144,7 +144,7 @@ public class Stage extends GuiScreen {
 	 */
 	@Override
 	public void mouseClicked(int clickX, int clickY, int mouseIndex) {
-		this.show.onMouseClicked(clickX, clickY, mouseIndex, false);
+		show.onMouseClicked(clickX, clickY, mouseIndex, false);
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class Stage extends GuiScreen {
 	protected void mouseReleased(int mouseX, int mouseY, int type) {
 		super.mouseReleased(mouseX, mouseY, type);
 		if ((type == 0) || (type == 1)) {
-			this.show.onMouseRelease(mouseX, mouseY);
+			show.onMouseRelease(mouseX, mouseY);
 		}
 	}
 
@@ -163,7 +163,7 @@ public class Stage extends GuiScreen {
 	 */
 	@Override
 	public void onGuiClosed() {
-		this.show.onClose();
+		show.onClose();
 	}
 
 	/**
@@ -174,10 +174,10 @@ public class Stage extends GuiScreen {
 	 *            - show which must be placed in history
 	 */
 	private void pushHistory(IShow show) {
-		if (this.showHistory.contains(show)) {
-			this.showHistory.remove(show);
+		if (showHistory.contains(show)) {
+			showHistory.remove(show);
 		}
-		this.showHistory.push(show);
+		showHistory.push(show);
 	}
 
 	/**
@@ -198,16 +198,16 @@ public class Stage extends GuiScreen {
 	 *            it's been already initialized
 	 */
 	public void reinitShow(boolean forceInit) {
-		this.show.setSize(this.width, this.height);
-		if (this.show instanceof WidgetContainer) {
-			((WidgetContainer) this.show).getComponentsList().clear();
+		show.setSize(width, height);
+		if (show instanceof WidgetContainer) {
+			((WidgetContainer) show).getComponentsList().clear();
 		}
-		if (!this.show.hasBeenInitialized() || forceInit) {
-			this.show.onInit();
+		if (!show.hasBeenInitialized() || forceInit) {
+			show.onInit();
 		}
-		this.show.setup();
-		if (this.show instanceof WidgetContainer) {
-			((WidgetContainer) this.show).getComponentsList().forEach(IGui::setup);
+		show.setup();
+		if (show instanceof WidgetContainer) {
+			((WidgetContainer) show).getComponentsList().forEach(IGui::setup);
 		}
 	}
 
@@ -229,6 +229,6 @@ public class Stage extends GuiScreen {
 	 */
 	@Override
 	public void updateScreen() {
-		this.show.onUpdate();
+		show.onUpdate();
 	}
 }

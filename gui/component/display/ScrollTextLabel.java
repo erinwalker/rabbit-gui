@@ -32,41 +32,40 @@ public class ScrollTextLabel extends TextLabel {
 	 * Used to determine if scrollbar should be vissble
 	 */
 	private boolean canFit() {
-		int content = this.getLines().size() * 10;
-		return content < this.height; // 10 - height of one symbol
+		int content = getLines().size() * 10;
+		return content < height; // 10 - height of one symbol
 	}
 
 	@Override
 	protected void drawMultilined() {
-		this.scrollBar.setVisiblie(!this.canFit());
-		List<String> displayLines = this.getLines();
+		scrollBar.setVisiblie(!canFit());
+		List<String> displayLines = getLines();
 		int scale = Geometry.computeScaleFactor();
 		for (int i = 0; i < displayLines.size(); i++) {
 			String line = displayLines.get(i);
-			int lineY = ((this.getY() + (i * 10)) - (int) ((10 * this.scrollBar.getProgress() * displayLines.size())
-					- (((this.height - 10) * (this.scrollBar.getProgress())) / 1)));
+			int lineY = ((getY() + (i * 10)) - (int) ((10 * scrollBar.getProgress() * displayLines.size())
+					- (((height - 10) * (scrollBar.getProgress())) / 1)));
 			GL11.glEnable(GL11.GL_SCISSOR_TEST);
-			GL11.glScissor(this.getX() * scale,
-					Minecraft.getMinecraft().displayHeight - ((this.getY() + this.getHeight()) * scale),
-					this.getWidth() * scale, this.getHeight() * scale);
-			this.drawAlignedLine(this.getX(), lineY, this.getWidth() - 10, line, this.alignment);
+			GL11.glScissor(getX() * scale, Minecraft.getMinecraft().displayHeight - ((getY() + getHeight()) * scale),
+					getWidth() * scale, getHeight() * scale);
+			drawAlignedLine(getX(), lineY, getWidth() - 10, line, alignment);
 			GL11.glDisable(GL11.GL_SCISSOR_TEST);
 		}
 
 	}
 
 	private List<String> getLines() {
-		return TextRenderer.getFontRenderer().listFormattedStringToWidth(this.getText(), this.width - 10);
+		return TextRenderer.getFontRenderer().listFormattedStringToWidth(getText(), width - 10);
 	}
 
 	@Override
 	public void setup() {
 		super.setup();
-		if (this.isMultilined()) {
-			int scrollerSize = Math.max(this.height / this.getLines().size(), 10);
-			this.scrollBar = new ScrollBar((this.getX() + this.width) - 10, this.getY(), 10, this.height, scrollerSize)
+		if (isMultilined()) {
+			int scrollerSize = Math.max(height / getLines().size(), 10);
+			scrollBar = new ScrollBar((getX() + width) - 10, getY(), 10, height, scrollerSize)
 					.setHandleMouseWheel(false);
-			this.registerComponent(this.scrollBar);
+			registerComponent(scrollBar);
 		}
 	}
 }

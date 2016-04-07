@@ -29,6 +29,6 @@ public enum ShapeType {
 	}
 
 	public void draw(int x, int y, int width, int height, int color) {
-		this.drawer.draw(x, y, width, height, color);
+		drawer.draw(x, y, width, height, color);
 	}
 }

@@ -19,7 +19,7 @@ public class SelectScrollList extends ScrollableDisplayList {
 	}
 
 	public List<SelectListEntry> getSelected() {
-		return this.content.stream().filter(SelectListEntry::isSelected).collect(Collectors.toList());
+		return content.stream().filter(SelectListEntry::isSelected).collect(Collectors.toList());
 	}
 
 }

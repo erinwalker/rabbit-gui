@@ -37,42 +37,42 @@ public class NumberPicker extends GuiWidget {
 	}
 
 	private void decrease() {
-		int newValue = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? this.value - this.jumpValue : this.value - 1;
-		if (newValue > this.minValue) {
-			this.value = newValue;
+		int newValue = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? value - jumpValue : value - 1;
+		if (newValue > minValue) {
+			value = newValue;
 		} else {
-			this.value = this.minValue;
+			value = minValue;
 		}
-		if (this.getListener() != null) {
-			this.getListener().onNumberChange(this, this.value);
+		if (getListener() != null) {
+			getListener().onNumberChange(this, value);
 		}
 	}
 
 	public NumberChangeListener getListener() {
-		return this.listener;
+		return listener;
 	}
 
 	public int getValue() {
-		return this.value;
+		return value;
 	}
 
 	private void increase() {
-		int newValue = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? this.value + this.jumpValue : this.value + 1;
-		if (newValue < this.maxValue) {
-			this.value = newValue;
+		int newValue = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? value + jumpValue : value + 1;
+		if (newValue < maxValue) {
+			value = newValue;
 		} else {
-			this.value = this.maxValue;
+			value = maxValue;
 		}
-		if (this.getListener() != null) {
-			this.getListener().onNumberChange(this, this.value);
+		if (getListener() != null) {
+			getListener().onNumberChange(this, value);
 		}
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
 		super.onDraw(mouseX, mouseY, partialTicks);
-		TextRenderer.renderString(this.getX() + (this.getWidth() / 2), (this.getY() + (this.getHeight() / 2)) - 5,
-				String.valueOf(this.value), TextAlignment.CENTER);
+		TextRenderer.renderString(getX() + (getWidth() / 2), (getY() + (getHeight() / 2)) - 5, String.valueOf(value),
+				TextAlignment.CENTER);
 	}
 
 	public NumberPicker setJumpValue(int jumpValue) {
@@ -98,10 +98,10 @@ public class NumberPicker extends GuiWidget {
 	@Override
 	public void setup() {
 		super.setup();
-		this.registerComponent(new Button(this.getX(), this.getY(), this.getWidth(), this.getHeight() / 3, "+")
-				.setClickListener(btn -> this.increase()));
-		this.registerComponent(new Button(this.getX(), this.getY() + ((this.getHeight() / 3) * 2), this.getWidth(),
-				this.getHeight() / 3, "-").setClickListener(btn -> this.decrease()));
+		registerComponent(
+				new Button(getX(), getY(), getWidth(), getHeight() / 3, "+").setClickListener(btn -> increase()));
+		registerComponent(new Button(getX(), getY() + ((getHeight() / 3) * 2), getWidth(), getHeight() / 3, "-")
+				.setClickListener(btn -> decrease()));
 	}
 
 	public void setValue(int value) {

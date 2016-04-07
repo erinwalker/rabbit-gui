@@ -21,19 +21,19 @@ public class LayoutShow extends Show {
 
 	public LayoutShow(List<LayoutComponentWrapper> components) {
 		super();
-		this.layoutComponents = components;
+		layoutComponents = components;
 	}
 
 	public List<LayoutComponentWrapper> getLayoutComponents() {
-		return this.layoutComponents;
+		return layoutComponents;
 	}
 
 	@Override
 	public void setup() {
 		super.setup();
-		for (LayoutComponentWrapper com : this.layoutComponents) {
+		for (LayoutComponentWrapper com : layoutComponents) {
 			try {
-				this.registerComponent(com.create(this));
+				registerComponent(com.create(this));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				throw new RuntimeException("Error while trying to create " + com.getType().getName() + " component");

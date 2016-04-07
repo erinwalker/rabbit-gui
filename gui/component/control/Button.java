@@ -69,22 +69,22 @@ public class Button extends GuiWidget implements Shiftable {
 
 	public Button(int xPos, int yPos, int width, int height, String title) {
 		super(xPos, yPos, width, height);
-		this.text = title;
+		text = title;
 	}
 
 	public Button addHoverText(String text) {
-		this.hoverText.add(text);
+		hoverText.add(text);
 		return this;
 	}
 
 	public Button doesDrawHoverText(boolean state) {
-		this.drawHoverText = state;
+		drawHoverText = state;
 		return this;
 	}
 
 	protected void drawButton(int state) {
-		Renderer.drawContinuousTexturedBox(this.getX(), this.getY(), 0, 46 + (20 * state), this.getWidth(),
-				this.getHeight(), 200, 20, 2, 3, 2, 2);
+		Renderer.drawContinuousTexturedBox(getX(), getY(), 0, 46 + (20 * state), getWidth(), getHeight(), 200, 20, 2, 3,
+				2, 2);
 	}
 
 	protected void endRender() {
@@ -93,67 +93,67 @@ public class Button extends GuiWidget implements Shiftable {
 	}
 
 	public ResourceLocation getButtonTexture() {
-		return this.buttonTexture;
+		return buttonTexture;
 	}
 
 	public ButtonClickListener getClickListener() {
-		return this.onClick;
+		return onClick;
 	}
 
 	public List<String> getHoverText() {
-		return this.hoverText;
+		return hoverText;
 	}
 
 	public String getText() {
-		return this.text;
+		return text;
 	}
 
 	public boolean isButtonUnderMouse(int mouseX, int mouseY) {
-		return (mouseX >= this.getX()) && (mouseX <= (this.getX() + this.getWidth())) && (mouseY >= this.getY())
-				&& (mouseY <= (this.getY() + this.getHeight()));
+		return (mouseX >= getX()) && (mouseX <= (getX() + getWidth())) && (mouseY >= getY())
+				&& (mouseY <= (getY() + getHeight()));
 	}
 
 	/**
 	 * @return <code> true</code> if button can be clicked
 	 */
 	public boolean isEnabled() {
-		return this.isEnabled;
+		return isEnabled;
 	}
 
 	/**
 	 * @return <code> true </code> if button would be rendered
 	 */
 	public boolean isVisible() {
-		return this.isVisible;
+		return isVisible;
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
-		if (this.isVisible()) {
-			this.prepareRender();
-			if (!this.isEnabled()) {
-				this.drawButton(DISABLED_STATE);
-			} else if (this.isButtonUnderMouse(mouseX, mouseY)) {
-				this.drawButton(HOVER_STATE);
-				if (this.drawHoverText) {
-					Renderer.drawHoveringText(this.hoverText, mouseX, mouseY);
+		if (isVisible()) {
+			prepareRender();
+			if (!isEnabled()) {
+				drawButton(DISABLED_STATE);
+			} else if (isButtonUnderMouse(mouseX, mouseY)) {
+				drawButton(HOVER_STATE);
+				if (drawHoverText) {
+					Renderer.drawHoveringText(hoverText, mouseX, mouseY);
 				}
 			} else {
-				this.drawButton(IDLE_STATE);
+				drawButton(IDLE_STATE);
 			}
-			TextRenderer.renderString(this.getX() + (this.getWidth() / 2), (this.getY() + (this.getHeight() / 2)) - 4,
-					this.getText(), TextAlignment.CENTER);
+			TextRenderer.renderString(getX() + (getWidth() / 2), (getY() + (getHeight() / 2)) - 4, getText(),
+					TextAlignment.CENTER);
 		}
 	}
 
 	@Override
 	public boolean onMouseClicked(int posX, int posY, int mouseButtonIndex, boolean overlap) {
-		boolean clicked = this.isButtonUnderMouse(posX, posY) && this.isEnabled() && !overlap;
+		boolean clicked = isButtonUnderMouse(posX, posY) && isEnabled() && !overlap;
 		if (clicked) {
-			if (this.getClickListener() != null) {
-				this.getClickListener().onClick(this);
+			if (getClickListener() != null) {
+				getClickListener().onClick(this);
 			}
-			this.playClickSound();
+			playClickSound();
 		}
 		return clicked;
 	}
@@ -164,7 +164,7 @@ public class Button extends GuiWidget implements Shiftable {
 	}
 
 	protected void prepareRender() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(this.getButtonTexture());
+		Minecraft.getMinecraft().getTextureManager().bindTexture(getButtonTexture());
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glEnable(GL11.GL_BLEND);
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
@@ -179,23 +179,23 @@ public class Button extends GuiWidget implements Shiftable {
 	 * @return self
 	 */
 	public Button setClickListener(ButtonClickListener onClicked) {
-		this.onClick = onClicked;
+		onClick = onClicked;
 		return this;
 	}
 
 	public Button setCustomTexture(ResourceLocation res) {
-		this.buttonTexture = res;
+		buttonTexture = res;
 		return this;
 	}
 
 	public Button setHoverText(List<String> text) {
-		this.hoverText = text;
+		hoverText = text;
 		return this;
 	}
 
 	@Override
 	public Button setId(String id) {
-		this.assignId(id);
+		assignId(id);
 		return this;
 	}
 
@@ -216,28 +216,28 @@ public class Button extends GuiWidget implements Shiftable {
 
 	@Override
 	public void shiftX(int x) {
-		this.setX(this.getX() + x);
+		setX(getX() + x);
 	}
 
 	@Override
 	public void shiftY(int y) {
-		this.setY(this.getY() + y);
+		setY(getY() + y);
 	}
 
 	protected void verifyHoverText(int mouseX, int mouseY) {
 		int tlineWidth = 0;
-		for (String line : this.originalHoverText) {
+		for (String line : originalHoverText) {
 			tlineWidth = TextRenderer.getFontRenderer().getStringWidth(line) > tlineWidth
 					? TextRenderer.getFontRenderer().getStringWidth(line) : tlineWidth;
 		}
 		int dWidth = GuiFoundation.proxy.getCurrentStage().width;
 		if (((tlineWidth + mouseX) > dWidth) && ((mouseX + 1) > (dWidth / 2))) {
 			// the button is on the right half of the screen
-			this.drawToLeft = true;
+			drawToLeft = true;
 		}
 		List<String> newHoverText = new ArrayList<String>();
-		if (this.drawToLeft) {
-			for (String line : this.originalHoverText) {
+		if (drawToLeft) {
+			for (String line : originalHoverText) {
 				int lineWidth = TextRenderer.getFontRenderer().getStringWidth(line) + 12;
 				// if the line length is longer than the button is from the left
 				// side of the screen we have to split
@@ -260,7 +260,7 @@ public class Button extends GuiWidget implements Shiftable {
 				}
 			}
 		} else {
-			for (String line : this.originalHoverText) {
+			for (String line : originalHoverText) {
 				int lineWidth = TextRenderer.getFontRenderer().getStringWidth(line) + 12;
 				// we just need to know what the right most side of the button
 				// is
@@ -283,6 +283,6 @@ public class Button extends GuiWidget implements Shiftable {
 				}
 			}
 		}
-		this.hoverText = newHoverText;
+		hoverText = newHoverText;
 	}
 }

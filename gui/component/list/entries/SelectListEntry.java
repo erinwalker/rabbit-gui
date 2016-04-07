@@ -12,17 +12,17 @@ public abstract class SelectListEntry implements ListEntry {
 	protected boolean selected = false;
 
 	public boolean isSelected() {
-		return this.selected;
+		return selected;
 	}
 
 	@Override
 	public void onClick(DisplayList list, int mouseX, int mouseY) {
-		this.selected = !this.selected;
+		selected = !selected;
 	}
 
 	@Override
 	public void onDraw(DisplayList list, int posX, int posY, int width, int height, int mouseX, int mouseY) {
-		if (this.isSelected()) {
+		if (isSelected()) {
 			Renderer.drawRect(posX, posY, posX + width, posY + height, 0x7FA9A9FF);
 		}
 	}

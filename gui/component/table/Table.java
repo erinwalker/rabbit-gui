@@ -32,19 +32,17 @@ public class Table extends GuiWidget {
 	}
 
 	public Table addRow(Row row) {
-		this.rows.add(row);
+		rows.add(row);
 		return this;
 	}
 
 	private void drawBackground() {
-		Renderer.drawRect(this.getX() - 1, this.getY() - 1, this.getX() + this.getWidth() + 1,
-				this.getY() + this.getHeight() + 1, -6250336);
-		Renderer.drawRect(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(),
-				-16777216);
+		Renderer.drawRect(getX() - 1, getY() - 1, getX() + getWidth() + 1, getY() + getHeight() + 1, -6250336);
+		Renderer.drawRect(getX(), getY(), getX() + getWidth(), getY() + getHeight(), -16777216);
 	}
 
 	public boolean drawHorizontalLines() {
-		return this.horizontalLines;
+		return horizontalLines;
 	}
 
 	private void drawRow(int xPos, int yPos, int width, int height, int oneLineHeight, Row row) {
@@ -54,7 +52,7 @@ public class Table extends GuiWidget {
 		for (int i = 0; i < row.getContent().size(); i++) {
 			TextRenderer.renderString(xPos + (width / 2), yPos + (oneLineHeight / 2) + (oneLineHeight * i),
 					lines.get(i), TextAlignment.CENTER);
-			if (((i + 1) != row.getContent().size()) && this.drawHorizontalLines()) {
+			if (((i + 1) != row.getContent().size()) && drawHorizontalLines()) {
 				Renderer.drawRect(xPos + 5, yPos + (oneLineHeight * i) + oneLineHeight, (xPos + width) - 5,
 						yPos + (oneLineHeight * i) + oneLineHeight + 1, -6250336);
 			}
@@ -62,12 +60,12 @@ public class Table extends GuiWidget {
 	}
 
 	public boolean drawVerticalLines() {
-		return this.verticalLines;
+		return verticalLines;
 	}
 
 	private Row getLongestRow() {
 		Row row = null;
-		for (Row r : this.getRows()) {
+		for (Row r : getRows()) {
 			if ((row == null) || (row.getContent().size() < r.getContent().size())) {
 				row = r;
 			}
@@ -76,51 +74,49 @@ public class Table extends GuiWidget {
 	}
 
 	public List<Row> getRows() {
-		return this.rows;
+		return rows;
 	}
 
 	public boolean isVisible() {
-		return this.isVisible;
+		return isVisible;
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
-		if (this.isVisible()) {
-			if (this.shouldDrawBackground()) {
-				this.drawBackground();
+		if (isVisible()) {
+			if (shouldDrawBackground()) {
+				drawBackground();
 			}
-			int oneRowWidth = this.getWidth() / this.getRows().size();
-			int oneLineHeight = this.getHeight() / this.getLongestRow().getContent().size();
-			for (int i = 0; i < this.getRows().size(); i++) {
-				this.drawRow(this.getX() + (oneRowWidth * i), this.getY(), oneRowWidth, this.getHeight(), oneLineHeight,
-						this.getRows().get(i));
-				if (((i + 1) != this.getRows().size()) && this.drawVerticalLines()) {
-					Renderer.drawRect((this.getX() + (oneRowWidth * i) + oneRowWidth) - 1, this.getY() + 5,
-							this.getX() + (oneRowWidth * i) + oneRowWidth, (this.getY() + this.getHeight()) - 5,
-							-6250336);
+			int oneRowWidth = getWidth() / getRows().size();
+			int oneLineHeight = getHeight() / getLongestRow().getContent().size();
+			for (int i = 0; i < getRows().size(); i++) {
+				drawRow(getX() + (oneRowWidth * i), getY(), oneRowWidth, getHeight(), oneLineHeight, getRows().get(i));
+				if (((i + 1) != getRows().size()) && drawVerticalLines()) {
+					Renderer.drawRect((getX() + (oneRowWidth * i) + oneRowWidth) - 1, getY() + 5,
+							getX() + (oneRowWidth * i) + oneRowWidth, (getY() + getHeight()) - 5, -6250336);
 				}
 			}
 		}
 	}
 
 	public Table setDrawBackground(boolean flag) {
-		this.drawBackground = flag;
+		drawBackground = flag;
 		return this;
 	}
 
 	public Table setDrawHorizontalLines(boolean flag) {
-		this.horizontalLines = flag;
+		horizontalLines = flag;
 		return this;
 	}
 
 	public Table setDrawVerticalLines(boolean flag) {
-		this.verticalLines = flag;
+		verticalLines = flag;
 		return this;
 	}
 
 	@Override
 	public Table setId(String id) {
-		this.assignId(id);
+		assignId(id);
 		return this;
 	}
 
@@ -130,7 +126,7 @@ public class Table extends GuiWidget {
 	}
 
 	public boolean shouldDrawBackground() {
-		return this.drawBackground;
+		return drawBackground;
 	}
 
 }

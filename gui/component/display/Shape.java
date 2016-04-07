@@ -15,13 +15,13 @@ public class Shape extends GuiWidget {
 
 	public Shape(int x, int y, int width, int height, ShapeType type, Color color) {
 		super(x, y, width, height);
-		this.shapeType = type;
+		shapeType = type;
 		this.color = color;
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
 		super.onDraw(mouseX, mouseY, partialTicks);
-		this.shapeType.draw(this.x, this.y, this.width, this.height, this.color.getRGB());
+		shapeType.draw(x, y, width, height, color.getRGB());
 	}
 }

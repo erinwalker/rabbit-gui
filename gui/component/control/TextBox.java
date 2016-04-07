@@ -67,34 +67,34 @@ public class TextBox extends GuiWidget implements Shiftable {
 
 	public TextBox(int xPos, int yPos, int width, int height, String initialText) {
 		super(xPos, yPos, width, height);
-		this.text = initialText;
-		this.initailText = initialText;
-		this.setCursorPosition(this.text.length());
+		text = initialText;
+		initailText = initialText;
+		setCursorPosition(text.length());
 		Keyboard.enableRepeatEvents(true);
 	}
 
 	public void deleteTextFromCursor(int amount) {
-		if (this.getText().length() != 0) {
-			if (this.selectionEnd != this.getCursorPosition()) {
-				this.pushText("");
+		if (getText().length() != 0) {
+			if (selectionEnd != getCursorPosition()) {
+				pushText("");
 			} else {
 				try {
 					boolean negative = amount < 0;
-					int j = negative ? this.getCursorPosition() + amount : this.getCursorPosition();
-					int k = negative ? this.getCursorPosition() : this.getCursorPosition() + amount;
+					int j = negative ? getCursorPosition() + amount : getCursorPosition();
+					int k = negative ? getCursorPosition() : getCursorPosition() + amount;
 					String result = "";
 					if (j >= 0) {
-						result = this.getText().substring(0, j);
+						result = getText().substring(0, j);
 					}
 
-					if (k < this.getText().length()) {
-						result += this.getText().substring(k);
+					if (k < getText().length()) {
+						result += getText().substring(k);
 					}
 
-					this.setTextWithEvent(result);
+					setTextWithEvent(result);
 
 					if (negative) {
-						this.moveCursorBy(amount);
+						moveCursorBy(amount);
 					}
 				} catch (Throwable t) {
 					t.printStackTrace();
@@ -104,30 +104,30 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	public void deleteWordsFromCursor(int amount) {
-		if (this.getText().length() != 0) {
-			if (this.selectionEnd != this.getCursorPosition()) {
-				this.pushText("");
+		if (getText().length() != 0) {
+			if (selectionEnd != getCursorPosition()) {
+				pushText("");
 			} else {
-				this.deleteTextFromCursor(this.getAmountOfWordsFromPos(amount, this.getCursorPosition(), true)
-						- this.getCursorPosition());
+				deleteTextFromCursor(
+						this.getAmountOfWordsFromPos(amount, getCursorPosition(), true) - getCursorPosition());
 			}
 		}
 	}
 
 	protected void drawBox() {
-		if (this.isVisible()) {
-			if (this.isBackgroundVisible()) {
-				this.drawTextBoxBackground();
+		if (isVisible()) {
+			if (isBackgroundVisible()) {
+				drawTextBoxBackground();
 			}
-			int textColor = this.isEnabled() ? this.getEnabledColor() : this.getDisabledColor();
-			int cursorPosWithOffset = this.getCursorPosition() - this.scrollOffset;
-			int selEnd = this.selectionEnd - this.scrollOffset;
-			String text = TextRenderer.getFontRenderer().trimStringToWidth(this.text.substring(this.scrollOffset),
-					this.isBackgroundVisible() ? this.getWidth() - 8 : this.getWidth());
+			int textColor = isEnabled() ? getEnabledColor() : getDisabledColor();
+			int cursorPosWithOffset = getCursorPosition() - scrollOffset;
+			int selEnd = selectionEnd - scrollOffset;
+			String text = TextRenderer.getFontRenderer().trimStringToWidth(this.text.substring(scrollOffset),
+					isBackgroundVisible() ? getWidth() - 8 : getWidth());
 			boolean isCursorVisible = (cursorPosWithOffset >= 0) && (cursorPosWithOffset <= text.length());
-			boolean shouldRenderCursor = this.isFocused() && (((this.cursorCounter / 6) % 2) == 0) && isCursorVisible;
-			int firstTextX = this.isBackgroundVisible() ? this.getX() + 4 : this.getX();
-			int textY = this.isBackgroundVisible() ? this.getY() + ((this.getHeight() - 8) / 2) : this.getY();
+			boolean shouldRenderCursor = isFocused() && (((cursorCounter / 6) % 2) == 0) && isCursorVisible;
+			int firstTextX = isBackgroundVisible() ? getX() + 4 : getX();
+			int textY = isBackgroundVisible() ? getY() + ((getHeight() - 8) / 2) : getY();
 			int secondTextX = firstTextX;
 
 			if (selEnd > text.length()) {
@@ -140,12 +140,12 @@ public class TextBox extends GuiWidget implements Shiftable {
 						textColor);
 			}
 
-			boolean isCursorInText = (this.getCursorPosition() < this.getText().length())
-					|| (this.getText().length() >= this.getMaxLength());
+			boolean isCursorInText = (getCursorPosition() < getText().length())
+					|| (getText().length() >= getMaxLength());
 			int cursorX = secondTextX;
 
 			if (!isCursorVisible) {
-				cursorX = cursorPosWithOffset > 0 ? firstTextX + this.getWidth() : firstTextX;
+				cursorX = cursorPosWithOffset > 0 ? firstTextX + getWidth() : firstTextX;
 			} else if (isCursorInText) {
 				cursorX = --secondTextX;
 			}
@@ -166,7 +166,7 @@ public class TextBox extends GuiWidget implements Shiftable {
 
 			if (selEnd != cursorPosWithOffset) {
 				int finishX = firstTextX + TextRenderer.getFontRenderer().getStringWidth(text.substring(0, selEnd));
-				this.renderSelectionRect(cursorX, textY - 1, finishX - 1,
+				renderSelectionRect(cursorX, textY - 1, finishX - 1,
 						textY + 1 + TextRenderer.getFontRenderer().FONT_HEIGHT);
 			}
 
@@ -174,28 +174,27 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	protected void drawTextBoxBackground() {
-		Renderer.drawRect(this.getX() - 1, this.getY() - 1, this.getX() + this.getWidth() + 1,
-				this.getY() + this.getHeight() + 1, BACKGROUND_GRAY_COLOR);
-		Renderer.drawRect(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(),
-				BACKGROUND_DARK_COLOR);
+		Renderer.drawRect(getX() - 1, getY() - 1, getX() + getWidth() + 1, getY() + getHeight() + 1,
+				BACKGROUND_GRAY_COLOR);
+		Renderer.drawRect(getX(), getY(), getX() + getWidth(), getY() + getHeight(), BACKGROUND_DARK_COLOR);
 	}
 
 	public int getAmountOfWordsFromPos(boolean negative, int absolute, int pos, boolean flag) {
 		int result = pos;
 		for (int i = 0; i < absolute; ++i) {
 			if (negative) {
-				while (flag && (result > 0) && (this.getText().charAt(result - 1) == 32)) {
+				while (flag && (result > 0) && (getText().charAt(result - 1) == 32)) {
 					--result;
 				}
-				while ((result > 0) && (this.getText().charAt(result - 1) != 32)) {
+				while ((result > 0) && (getText().charAt(result - 1) != 32)) {
 					--result;
 				}
 			} else {
-				result = this.getText().indexOf(32, result);
+				result = getText().indexOf(32, result);
 				if (result == -1) {
-					result = this.getText().length();
+					result = getText().length();
 				} else {
-					while (flag && (result < this.getText().length()) && (this.getText().charAt(result) == 32)) {
+					while (flag && (result < getText().length()) && (getText().charAt(result) == 32)) {
 						++result;
 					}
 				}
@@ -209,78 +208,78 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	public int getCursorPosition() {
-		return this.cursorPos;
+		return cursorPos;
 	}
 
 	public int getDisabledColor() {
-		return this.disabledColor;
+		return disabledColor;
 	}
 
 	public int getEnabledColor() {
-		return this.enabledColor;
+		return enabledColor;
 	}
 
 	public int getMaxLength() {
-		return this.maxStringLength;
+		return maxStringLength;
 	}
 
 	public String getSelectedText() {
-		int from = Math.min(this.getCursorPosition(), this.selectionEnd);
-		int to = Math.max(this.getCursorPosition(), this.selectionEnd);
-		return this.getText().substring(from, to);
+		int from = Math.min(getCursorPosition(), selectionEnd);
+		int to = Math.max(getCursorPosition(), selectionEnd);
+		return getText().substring(from, to);
 	}
 
 	public String getText() {
-		return this.text;
+		return text;
 	}
 
 	public TextChangedListener getTextChangedListener() {
-		return this.textChangedListener;
+		return textChangedListener;
 	}
 
 	protected boolean handleInput(char typedChar, int typedKeyIndex) {
 		switch (typedKeyIndex) {
 		case Keyboard.KEY_BACK:
-			if (this.isEnabled()) {
+			if (isEnabled()) {
 				if (GuiScreen.isCtrlKeyDown()) {
-					this.deleteWordsFromCursor(-1);
+					deleteWordsFromCursor(-1);
 				} else {
-					this.deleteTextFromCursor(-1);
+					deleteTextFromCursor(-1);
 				}
 			}
 			return true;
 		case Keyboard.KEY_HOME:
 			if (GuiScreen.isShiftKeyDown()) {
-				this.setSelectionPos(0);
+				setSelectionPos(0);
 			} else {
-				this.setCursorPosition(0);
+				setCursorPosition(0);
 			}
 			return true;
 		case Keyboard.KEY_LEFT:
-			this.handleKeyboardArrow(-1);
+			handleKeyboardArrow(-1);
 			return true;
 		case Keyboard.KEY_RIGHT:
-			this.handleKeyboardArrow(1);
+			handleKeyboardArrow(1);
 			return true;
 		case Keyboard.KEY_END:
 			if (GuiScreen.isShiftKeyDown()) {
-				this.setSelectionPos(this.getText().length());
+				setSelectionPos(getText().length());
 			} else {
-				this.setCursorPosition(this.getText().length());
+				setCursorPosition(getText().length());
 			}
 			return true;
 		case Keyboard.KEY_DELETE:
-			if (this.isEnabled()) {
+			if (isEnabled()) {
 				if (GuiScreen.isCtrlKeyDown()) {
-					this.deleteWordsFromCursor(1);
+					deleteWordsFromCursor(1);
 				} else {
-					this.deleteTextFromCursor(1);
+					deleteTextFromCursor(1);
 				}
 			}
 			return true;
 		default:
-			if (this.isEnabled() && ChatAllowedCharacters.isAllowedCharacter(typedChar)) {
-				this.pushText(Character.toString(typedChar));
+			if (isEnabled() && ChatAllowedCharacters.isAllowedCharacter(typedChar)) {
+				pushText(Character.toString(typedChar));
 				return true;
 			}
 		}
@@ -289,38 +288,36 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	protected void handleKey(char typedChar, int typedIndex) {
-		if (!this.isFocused()) {
+		if (!isFocused()) {
 			return;
 		}
-		boolean isSpecialCharCombination = this.handleSpecialCharComb(typedChar, typedIndex);
+		boolean isSpecialCharCombination = handleSpecialCharComb(typedChar, typedIndex);
 		if (!isSpecialCharCombination) {
-			this.handleInput(typedChar, typedIndex);
+			handleInput(typedChar, typedIndex);
 		}
 	}
 
 	private void handleKeyboardArrow(int n) {
 		if (GuiScreen.isShiftKeyDown()) {
 			if (GuiScreen.isCtrlKeyDown()) {
-				this.setSelectionPos(this.getAmountOfWordsFromPos(n, this.selectionEnd, true));
+				setSelectionPos(this.getAmountOfWordsFromPos(n, selectionEnd, true));
 			} else {
-				this.setSelectionPos(this.selectionEnd + n);
+				setSelectionPos(selectionEnd + n);
 			}
 		} else if (GuiScreen.isCtrlKeyDown()) {
-			this.setCursorPosition(this.getAmountOfWordsFromPos(n, this.getCursorPosition(), true));
+			setCursorPosition(this.getAmountOfWordsFromPos(n, getCursorPosition(), true));
 		} else {
-			this.setCursorPosition(this.selectionEnd + (n));
+			setCursorPosition(selectionEnd + (n));
 		}
 	}
 
 	protected boolean handleMouseClick(int posX, int posY, int mouseButtonIndex, boolean overlap) {
-		boolean clicked = this.isTextBoxUnderMouse(posX, posY) && !overlap;
-		this.setIsFocused(clicked);
-		if (this.isFocused() && (mouseButtonIndex == 0)) {
-			int lenght = posX - this.getX();
-			String temp = TextRenderer.getFontRenderer().trimStringToWidth(this.text.substring(this.scrollOffset),
-					this.getWidth());
-			this.setCursorPosition(
-					TextRenderer.getFontRenderer().trimStringToWidth(temp, lenght).length() + this.scrollOffset);
+		boolean clicked = isTextBoxUnderMouse(posX, posY) && !overlap;
+		setIsFocused(clicked);
+		if (isFocused() && (mouseButtonIndex == 0)) {
+			int lenght = posX - getX();
+			String temp = TextRenderer.getFontRenderer().trimStringToWidth(text.substring(scrollOffset), getWidth());
+			setCursorPosition(TextRenderer.getFontRenderer().trimStringToWidth(temp, lenght).length() + scrollOffset);
 		}
 		return clicked;
 	}
@@ -328,21 +325,21 @@ public class TextBox extends GuiWidget implements Shiftable {
 	protected boolean handleSpecialCharComb(char typedChar, int typedIndex) {
 		switch (typedChar) {
 		case 1:
-			this.setCursorPosition(this.getText().length());
-			this.setSelectionPos(0);
+			setCursorPosition(getText().length());
+			setSelectionPos(0);
 			return true;
 		case ControlCharacters.CtrlC:
-			GuiScreen.setClipboardString(this.getSelectedText());
+			GuiScreen.setClipboardString(getSelectedText());
 			return true;
 		case ControlCharacters.CtrlV:
-			if (this.isEnabled()) {
-				this.pushText(GuiScreen.getClipboardString());
+			if (isEnabled()) {
+				pushText(GuiScreen.getClipboardString());
 			}
 			return true;
 		case ControlCharacters.CtrlX:
-			GuiScreen.setClipboardString(this.getSelectedText());
-			if (this.isEnabled()) {
-				this.pushText("");
+			GuiScreen.setClipboardString(getSelectedText());
+			if (isEnabled()) {
+				pushText("");
 			}
 			return true;
 		}
@@ -350,28 +347,28 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	public boolean isBackgroundVisible() {
-		return this.visibleBackground;
+		return visibleBackground;
 	}
 
 	public boolean isEnabled() {
-		return this.isEnabled;
+		return isEnabled;
 	}
 
 	public boolean isFocused() {
-		return this.isFocused;
+		return isFocused;
 	}
 
 	public boolean isTextBoxUnderMouse(int mouseX, int mouseY) {
-		return (mouseX >= this.getX()) && (mouseX <= (this.getX() + this.getWidth())) && (mouseY >= this.getY())
-				&& (mouseY <= (this.getY() + this.getHeight()));
+		return (mouseX >= getX()) && (mouseX <= (getX() + getWidth())) && (mouseY >= getY())
+				&& (mouseY <= (getY() + getHeight()));
 	}
 
 	public boolean isVisible() {
-		return this.isVisible;
+		return isVisible;
 	}
 
 	public void moveCursorBy(int amount) {
-		this.setCursorPosition(this.selectionEnd + amount);
+		setCursorPosition(selectionEnd + amount);
 	}
 
 	@Override
@@ -382,35 +379,35 @@ public class TextBox extends GuiWidget implements Shiftable {
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
 		super.onDraw(mouseX, mouseY, partialTicks);
-		this.drawBox();
+		drawBox();
 	}
 
 	@Override
 	public void onKeyTyped(char typedChar, int typedIndex) {
 		super.onKeyTyped(typedChar, typedIndex);
-		this.handleKey(typedChar, typedIndex);
+		handleKey(typedChar, typedIndex);
 	}
 
 	@Override
 	public boolean onMouseClicked(int posX, int posY, int mouseButtonIndex, boolean overlap) {
 		super.onMouseClicked(posX, posY, mouseButtonIndex, overlap);
-		return this.handleMouseClick(posX, posY, mouseButtonIndex, overlap);
+		return handleMouseClick(posX, posY, mouseButtonIndex, overlap);
 	}
 
 	@Override
 	public void onUpdate() {
-		this.cursorCounter++;
+		cursorCounter++;
 	}
 
 	public void pushText(String text) {
 		String result = "";
 		String filtered = ChatAllowedCharacters.filterAllowedCharacters(text);
-		int i = this.getCursorPosition() < this.selectionEnd ? this.getCursorPosition() : this.selectionEnd;
-		int j = this.getCursorPosition() < this.selectionEnd ? this.selectionEnd : this.getCursorPosition();
-		int k = this.getMaxLength() - this.getText().length() - (i - this.selectionEnd);
+		int i = getCursorPosition() < selectionEnd ? getCursorPosition() : selectionEnd;
+		int j = getCursorPosition() < selectionEnd ? selectionEnd : getCursorPosition();
+		int k = getMaxLength() - getText().length() - (i - selectionEnd);
 
-		if (this.getText().length() > 0) {
-			result += this.getText().substring(0, i);
+		if (getText().length() > 0) {
+			result += getText().substring(0, i);
 		}
 		int end = 0;
 		if (k < filtered.length()) {
@@ -420,11 +417,11 @@ public class TextBox extends GuiWidget implements Shiftable {
 			result = result + filtered;
 			end = filtered.length();
 		}
-		if ((this.getText().length() > 0) && (j < this.getText().length())) {
-			result = result + this.getText().substring(j);
+		if ((getText().length() > 0) && (j < getText().length())) {
+			result = result + getText().substring(j);
 		}
-		this.setTextWithEvent(result);
-		this.moveCursorBy((i - this.selectionEnd) + end);
+		setTextWithEvent(result);
+		moveCursorBy((i - selectionEnd) + end);
 	}
 
 	protected void renderSelectionRect(int xTop, int yTop, int xBot, int yBot) {
@@ -443,31 +440,31 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	public TextBox setCursorPosition(int pos) {
-		this.cursorPos = pos;
-		if (this.getCursorPosition() < 0) {
-			this.cursorPos = 0;
+		cursorPos = pos;
+		if (getCursorPosition() < 0) {
+			cursorPos = 0;
 		}
-		if (this.getCursorPosition() > this.getText().length()) {
-			this.cursorPos = this.getText().length();
+		if (getCursorPosition() > getText().length()) {
+			cursorPos = getText().length();
 		}
 
-		this.setSelectionPos(this.getCursorPosition());
+		setSelectionPos(getCursorPosition());
 		return this;
 	}
 
 	public TextBox setDisabledColor(int color) {
-		this.disabledColor = color;
+		disabledColor = color;
 		return this;
 	}
 
 	public TextBox setEnabledColor(int color) {
-		this.enabledColor = color;
+		enabledColor = color;
 		return this;
 	}
 
 	@Override
 	public TextBox setId(String id) {
-		this.assignId(id);
+		assignId(id);
 		return this;
 	}
 
@@ -477,10 +474,10 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	public TextBox setIsFocused(boolean isFocused) {
-		if (isFocused && (this.text == this.initailText)) {
-			this.setText("");
-		} else if (!isFocused && this.text.isEmpty()) {
-			this.setText(this.initailText);
+		if (isFocused && (text == initailText)) {
+			setText("");
+		} else if (!isFocused && text.isEmpty()) {
+			setText(initailText);
 		}
 		this.isFocused = isFocused;
 		return this;
@@ -492,7 +489,7 @@ public class TextBox extends GuiWidget implements Shiftable {
 	}
 
 	public TextBox setMaxLength(int max) {
-		this.maxStringLength = max;
+		maxStringLength = max;
 		return this;
 	}
 
@@ -501,49 +498,48 @@ public class TextBox extends GuiWidget implements Shiftable {
 			pos = 0;
 		}
 
-		if (pos > this.getText().length()) {
-			pos = this.getText().length();
+		if (pos > getText().length()) {
+			pos = getText().length();
 		}
 
-		this.selectionEnd = pos;
+		selectionEnd = pos;
 
-		if (this.scrollOffset > this.getText().length()) {
-			this.scrollOffset = this.getText().length();
+		if (scrollOffset > getText().length()) {
+			scrollOffset = getText().length();
 		}
 
-		String trimmed = TextRenderer.getFontRenderer().trimStringToWidth(this.getText().substring(this.scrollOffset),
-				this.getWidth());
-		int length = trimmed.length() + this.scrollOffset;
+		String trimmed = TextRenderer.getFontRenderer().trimStringToWidth(getText().substring(scrollOffset),
+				getWidth());
+		int length = trimmed.length() + scrollOffset;
 
-		if (pos == this.scrollOffset) {
-			this.scrollOffset -= TextRenderer.getFontRenderer().trimStringToWidth(this.getText(), this.getWidth(), true)
-					.length();
+		if (pos == scrollOffset) {
+			scrollOffset -= TextRenderer.getFontRenderer().trimStringToWidth(getText(), getWidth(), true).length();
 		}
 
 		if (pos > length) {
-			this.scrollOffset += pos - length;
-		} else if (pos <= this.scrollOffset) {
-			this.scrollOffset -= this.scrollOffset - pos;
+			scrollOffset += pos - length;
+		} else if (pos <= scrollOffset) {
+			scrollOffset -= scrollOffset - pos;
 		}
 
-		if (this.scrollOffset < 0) {
-			this.scrollOffset = 0;
+		if (scrollOffset < 0) {
+			scrollOffset = 0;
 		}
 
-		if (this.scrollOffset > this.getText().length()) {
-			this.scrollOffset = this.getText().length();
+		if (scrollOffset > getText().length()) {
+			scrollOffset = getText().length();
 		}
 
 		return this;
 	}
 
 	public TextBox setText(String newText) {
-		this.text = newText;
+		text = newText;
 		return this;
 	}
 
 	public TextBox setTextChangedListener(TextChangedListener listener) {
-		this.textChangedListener = listener;
+		textChangedListener = listener;
 		return this;
 	}
 
@@ -554,20 +550,20 @@ public class TextBox extends GuiWidget implements Shiftable {
 	 * @return this
 	 */
 	public TextBox setTextWithEvent(String newText) {
-		this.setText(newText);
-		if (this.getTextChangedListener() != null) {
-			this.getTextChangedListener().onTextChanged(this, newText);
+		setText(newText);
+		if (getTextChangedListener() != null) {
+			getTextChangedListener().onTextChanged(this, newText);
 		}
 		return this;
 	}
 
 	@Override
 	public void shiftX(int x) {
-		this.setX(this.getX() + x);
+		setX(getX() + x);
 	}
 
 	@Override
 	public void shiftY(int y) {
-		this.setY(this.getY() + y);
+		setY(getY() + y);
 	}
 }

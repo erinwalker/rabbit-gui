@@ -47,71 +47,69 @@ public class Slider extends GuiWidget {
 	 * @param mouseY
 	 */
 	private void calculateScroller(int pos) {
-		if (this.isScrolling) {
-			float magic = (((pos - this.getX()) + 2) - 10F) / ((this.getX() + this.width) - (this.getX() + 2) - 15.0F);
-			this.updateProgress(magic - this.scrolled);
+		if (isScrolling) {
+			float magic = (((pos - getX()) + 2) - 10F) / ((getX() + width) - (getX() + 2) - 15.0F);
+			updateProgress(magic - scrolled);
 		}
 	}
 
 	private void drawScroller(int xPos, int yPos, int width, int height) {
 		Minecraft.getMinecraft().renderEngine
 				.bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tabs.png"));
-		Renderer.drawContinuousTexturedBox(xPos, yPos, this.isScrolling() ? 244 : 232, 0, width, height, 12, 15, 1, 2,
-				2, 2);
+		Renderer.drawContinuousTexturedBox(xPos, yPos, isScrolling() ? 244 : 232, 0, width, height, 12, 15, 1, 2, 2, 2);
 	}
 
 	/**
 	 * Returns a float value between 0 and 1,
 	 */
 	public float getProgress() {
-		return this.scrolled;
+		return scrolled;
 	}
 
 	public OnProgressChanged getProgressChangedListener() {
-		return this.progressChangedListener;
+		return progressChangedListener;
 	}
 
 	public boolean isScrolling() {
-		return this.isScrolling;
+		return isScrolling;
 	}
 
 	public boolean isVisible() {
-		return this.visible;
+		return visible;
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
 		super.onDraw(mouseX, mouseY, partialTicks);
-		if (this.isVisible()) {
-			this.calculateScroller(mouseX);
+		if (isVisible()) {
+			calculateScroller(mouseX);
 			Minecraft.getMinecraft().renderEngine
 					.bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_items.png"));
-			Renderer.drawContinuousTexturedBox(this.getX(), this.getY(), 174 - 1, 17 - 1, this.width, this.height,
-					14 + 2, 112 + 2, 2, 2, 2, 2);
-			int scrollerPos = (int) (this.getX() + 2 + (this.scrolled * (this.width - 4 - this.scrollerSize)));
-			this.drawScroller(scrollerPos, this.getY() + 2, this.scrollerSize, this.height - 4);
+			Renderer.drawContinuousTexturedBox(getX(), getY(), 174 - 1, 17 - 1, width, height, 14 + 2, 112 + 2, 2, 2, 2,
+					2);
+			int scrollerPos = (int) (getX() + 2 + (scrolled * (width - 4 - scrollerSize)));
+			drawScroller(scrollerPos, getY() + 2, scrollerSize, height - 4);
 		}
 	}
 
 	@Override
 	public boolean onMouseClicked(int posX, int posY, int mouseButtonIndex, boolean overlap) {
 		super.onMouseClicked(posX, posY, mouseButtonIndex, overlap);
-		this.isScrolling = !overlap && Geometry.isDotInArea(this.getX() + 2,
-				(int) (this.getY() + 2 + (this.scrolled * (this.height - this.scrollerSize))), this.width - 4,
-				this.scrollerSize, posX, posY);
-		return this.isScrolling;
+		isScrolling = !overlap && Geometry.isDotInArea(getX() + 2,
+				(int) (getY() + 2 + (scrolled * (height - scrollerSize))), width - 4, scrollerSize, posX, posY);
+		return isScrolling;
 	}
 
 	@Override
 	public void onMouseInput() {
 		super.onMouseInput();
-		if (this.shouldHandleMouseWheel()) {
+		if (shouldHandleMouseWheel()) {
 			double delta = Mouse.getDWheel();
 			if (delta < 0) {
-				this.updateProgress(0.20F);
+				updateProgress(0.20F);
 			}
 			if (delta > 0) {
-				this.updateProgress(-0.20F);
+				updateProgress(-0.20F);
 			}
 		}
 	}
@@ -119,32 +117,31 @@ public class Slider extends GuiWidget {
 	@Override
 	public void onMouseRelease(int mouseX, int mouseY) {
 		super.onMouseRelease(mouseX, mouseY);
-		if (this.isScrolling) {
-			this.isScrolling = false;
-			float magic = (((mouseX - this.getX()) + 2) - 10F)
-					/ ((this.getX() + this.width) - (this.getX() + 2) - 15.0F);
-			this.updateProgress(magic - this.scrolled);
+		if (isScrolling) {
+			isScrolling = false;
+			float magic = (((mouseX - getX()) + 2) - 10F) / ((getX() + width) - (getX() + 2) - 15.0F);
+			updateProgress(magic - scrolled);
 		}
 
 	}
 
 	private void revalidateScroller() {
-		if (this.scrolled < 0) {
-			this.scrolled = 0;
+		if (scrolled < 0) {
+			scrolled = 0;
 		}
-		if (this.scrolled > 1) {
-			this.scrolled = 1;
+		if (scrolled > 1) {
+			scrolled = 1;
 		}
 	}
 
 	public Slider setHandleMouseWheel(boolean status) {
-		this.handleMouseWheel = status;
+		handleMouseWheel = status;
 		return this;
 	}
 
 	public Slider setProgress(float scroll) {
-		this.scrolled = scroll;
-		this.revalidateScroller();
+		scrolled = scroll;
+		revalidateScroller();
 		return this;
 	}
 
@@ -154,7 +151,7 @@ public class Slider extends GuiWidget {
 	}
 
 	public Slider setScrollerSize(int size) {
-		this.scrollerSize = size;
+		scrollerSize = size;
 		return this;
 	}
 
@@ -164,12 +161,12 @@ public class Slider extends GuiWidget {
 	}
 
 	public boolean shouldHandleMouseWheel() {
-		return this.handleMouseWheel;
+		return handleMouseWheel;
 	}
 
 	public void updateProgress(float modifier) {
-		this.setProgress(this.scrolled + modifier);
-		this.getProgressChangedListener().onProgressChanged(this, this.scrolled);
+		setProgress(scrolled + modifier);
+		getProgressChangedListener().onProgressChanged(this, scrolled);
 	}
 
 }

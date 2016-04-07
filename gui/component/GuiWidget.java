@@ -33,10 +33,10 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	protected int height;
 
 	protected GuiWidget() {
-		this.x = -1;
-		this.y = -1;
-		this.width = -1;
-		this.height = -1;
+		x = -1;
+		y = -1;
+		width = -1;
+		height = -1;
 	}
 
 	protected GuiWidget(int x, int y, int width, int height) {
@@ -55,14 +55,14 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 
 	@Override
 	public List<IGui> getComponentsList() {
-		if (this.components == null) {
-			this.components = new ArrayList<>();
+		if (components == null) {
+			components = new ArrayList<>();
 		}
-		return this.components;
+		return components;
 	}
 
 	public int getHeight() {
-		return this.height;
+		return height;
 	}
 
 	/**
@@ -72,7 +72,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public String getId() {
-		return this.id;
+		return id;
 	}
 
 	/**
@@ -82,19 +82,19 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public WidgetContainer getParent() {
-		return this.parent;
+		return parent;
 	}
 
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	public int getX() {
-		return this.x;
+		return x;
 	}
 
 	public int getY() {
-		return this.y;
+		return y;
 	}
 
 	/**
@@ -102,7 +102,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void onClose() {
-		this.getComponentsList().forEach(com -> com.onClose());
+		getComponentsList().forEach(com -> com.onClose());
 	}
 
 	/**
@@ -114,7 +114,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
-		this.getComponentsList().forEach(com -> com.onDraw(mouseX, mouseY, partialTicks));
+		getComponentsList().forEach(com -> com.onDraw(mouseX, mouseY, partialTicks));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void onKeyTyped(char typedChar, int typedIndex) {
-		this.getComponentsList().forEach(com -> com.onKeyTyped(typedChar, typedIndex));
+		getComponentsList().forEach(com -> com.onKeyTyped(typedChar, typedIndex));
 	}
 
 	/**
@@ -140,7 +140,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	@Override
 	public boolean onMouseClicked(int posX, int posY, int mouseButtonIndex, boolean overlap) {
 		boolean clicked = false;
-		for (IGui com : this.getComponentsList()) {
+		for (IGui com : getComponentsList()) {
 			clicked = com.onMouseClicked(posX, posY, mouseButtonIndex, clicked) || clicked;
 		}
 		return clicked;
@@ -151,12 +151,12 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void onMouseInput() {
-		this.getComponentsList().forEach(com -> com.onMouseInput());
+		getComponentsList().forEach(com -> com.onMouseInput());
 	}
 
 	@Override
 	public void onMouseRelease(int mouseX, int mouseY) {
-		this.getComponentsList().forEach(com -> com.onMouseRelease(mouseX, mouseY));
+		getComponentsList().forEach(com -> com.onMouseRelease(mouseX, mouseY));
 	}
 
 	/**
@@ -164,7 +164,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void onRegistered(WidgetContainer pane) {
-		this.setParent(pane);
+		setParent(pane);
 	}
 
 	/**
@@ -172,7 +172,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void onUpdate() {
-		this.getComponentsList().forEach(com -> com.onUpdate());
+		getComponentsList().forEach(com -> com.onUpdate());
 	}
 
 	/**
@@ -182,7 +182,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void registerComponent(IGui component) {
-		this.getComponentsList().add(component);
+		getComponentsList().add(component);
 		if (component instanceof WidgetContainer) {
 			((WidgetContainer) component).onRegistered(this);
 		}
@@ -200,13 +200,13 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public <T> IGui setId(String id) {
-		this.assignId(id);
+		assignId(id);
 		return this;
 	}
 
 	@Override
 	public void setParent(WidgetContainer pane) {
-		this.parent = pane;
+		parent = pane;
 	}
 
 	/**
@@ -215,7 +215,7 @@ public abstract class GuiWidget implements IGui, WidgetContainer {
 	 */
 	@Override
 	public void setup() {
-		this.getComponentsList().clear();
+		getComponentsList().clear();
 	}
 
 	public GuiWidget setWidth(int width) {

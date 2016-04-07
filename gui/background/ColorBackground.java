@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.rabbit.gui.component.IBackground;
 import com.rabbit.gui.render.Renderer;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -19,7 +20,8 @@ public class ColorBackground implements IBackground {
 
 	@Override
 	public void onDraw(int width, int height, int mouseX, int mouseY, float partialTicks) {
-		Renderer.drawRect(0, 0, width, height, this.color.getRGB());
+		GlStateManager.resetColor();
+		Renderer.drawRect(0, 0, width, height, color.getRGB());
 	}
 
 }

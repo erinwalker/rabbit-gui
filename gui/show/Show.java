@@ -29,22 +29,22 @@ public abstract class Show implements IShow, WidgetContainer {
 
 	@Override
 	public IBackground getBackground() {
-		return this.background;
+		return background;
 	}
 
 	@Override
 	public List<IGui> getComponentsList() {
-		return this.components;
+		return components;
 	}
 
 	@Override
 	public int getHeight() {
-		return this.height;
+		return height;
 	}
 
 	@Override
 	public String getId() {
-		return this.id;
+		return id;
 	}
 
 	@Override
@@ -54,60 +54,59 @@ public abstract class Show implements IShow, WidgetContainer {
 
 	@Override
 	public Stage getStage() {
-		return this.stage;
+		return stage;
 	}
 
 	@Override
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	@Override
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	@Override
 	public boolean hasBeenInitialized() {
-		return this.initialized;
+		return initialized;
 	}
 
 	@Override
 	public void onClose() {
-		this.getComponentsList().forEach(com -> com.onClose());
+		getComponentsList().forEach(com -> com.onClose());
 		Display.setTitle("Minecraft 1.8");
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
-		if (this.getBackground() != null) {
-			this.getBackground().onDraw(this.width, this.height, mouseX, mouseY, partialTicks);
+		if (getBackground() != null) {
+			getBackground().onDraw(width, height, mouseX, mouseY, partialTicks);
 		}
 		// we need to draw components in reversed order, the last added element
 		// will be under earlier
-		for (ListIterator<IGui> it = this.getComponentsList().listIterator(this.getComponentsList().size()); it
-				.hasPrevious();) {
+		for (ListIterator<IGui> it = getComponentsList().listIterator(getComponentsList().size()); it.hasPrevious();) {
 			it.previous().onDraw(mouseX, mouseY, partialTicks);
 		}
 	}
 
 	@Override
 	public void onInit() {
-		if (!StringUtils.isNullOrEmpty(this.title)) {
-			this.updateDisplayTitle();
+		if (!StringUtils.isNullOrEmpty(title)) {
+			updateDisplayTitle();
 		}
-		this.initialized = true;
+		initialized = true;
 	}
 
 	@Override
 	public void onKeyTyped(char typedChar, int typedIndex) {
-		this.getComponentsList().forEach(com -> com.onKeyTyped(typedChar, typedIndex));
+		getComponentsList().forEach(com -> com.onKeyTyped(typedChar, typedIndex));
 	}
 
 	@Override
 	public boolean onMouseClicked(int posX, int posY, int mouseButtonIndex, boolean overlap) {
 		boolean clicked = false;
-		for (IGui com : this.getComponentsList()) {
+		for (IGui com : getComponentsList()) {
 			clicked = com.onMouseClicked(posX, posY, mouseButtonIndex, clicked) || clicked;
 		}
 		return clicked;
@@ -115,28 +114,28 @@ public abstract class Show implements IShow, WidgetContainer {
 
 	@Override
 	public void onMouseInput() {
-		this.getComponentsList().forEach(com -> com.onMouseInput());
+		getComponentsList().forEach(com -> com.onMouseInput());
 	}
 
 	@Override
 	public void onMouseRelease(int mouseX, int mouseY) {
-		this.getComponentsList().forEach(com -> com.onMouseRelease(mouseX, mouseY));
+		getComponentsList().forEach(com -> com.onMouseRelease(mouseX, mouseY));
 	}
 
 	@Override
 	public void onRegistered(WidgetContainer pane) {
 		Validate.isTrue(pane instanceof Stage, "Provided WidgetContainer should be Stage");
-		this.setStage((Stage) pane);
+		setStage((Stage) pane);
 	}
 
 	@Override
 	public void onUpdate() {
-		this.getComponentsList().forEach(com -> com.onUpdate());
+		getComponentsList().forEach(com -> com.onUpdate());
 	}
 
 	@Override
 	public void registerComponent(IGui component) {
-		this.components.add(component);
+		components.add(component);
 		if (component instanceof WidgetContainer) {
 			((WidgetContainer) component).onRegistered(this);
 		}
@@ -175,16 +174,16 @@ public abstract class Show implements IShow, WidgetContainer {
 	@Override
 	public void setTitle(String title) {
 		this.title = title;
-		this.updateDisplayTitle();
+		updateDisplayTitle();
 	}
 
 	@Override
 	public void setup() {
-		this.getComponentsList().forEach(com -> com.setup());
+		getComponentsList().forEach(com -> com.setup());
 	}
 
 	private void updateDisplayTitle() {
-		Display.setTitle("Minecraft 1.8" + " - " + this.title);
+		Display.setTitle("Minecraft 1.8" + " - " + title);
 	}
 
 }

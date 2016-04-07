@@ -38,7 +38,7 @@ public class TextLabel extends GuiWidget implements Shiftable {
 	public TextLabel(int xPos, int yPos, int width, int height, String text, TextAlignment align) {
 		super(xPos, yPos, width, height);
 		this.text = text;
-		this.alignment = align;
+		alignment = align;
 	}
 
 	public TextLabel(int xPos, int yPos, int width, String text) {
@@ -47,64 +47,62 @@ public class TextLabel extends GuiWidget implements Shiftable {
 
 	protected void drawAlignedLine(int x, int y, int width, String text, TextAlignment alignment) {
 		if (alignment == TextAlignment.CENTER) {
-			x = x + (this.getWidth() / 2);
+			x = x + (getWidth() / 2);
 		} else if (alignment == TextAlignment.RIGHT) {
-			x = x + this.getWidth();
+			x = x + getWidth();
 		}
 		TextRenderer.renderString(x, y, text, alignment);
 	}
 
 	private void drawBackground() {
-		Renderer.drawRect(this.getX() - 2, this.getY() - 2, this.getX() + this.width + 2, this.getY() + this.height + 3,
-				-6250336);
-		Renderer.drawRect(this.getX() - 1, this.getY() - 1, this.getX() + this.width + 1, this.getY() + this.height + 2,
-				-0xFFFFFF - 1);
+		Renderer.drawRect(getX() - 2, getY() - 2, getX() + width + 2, getY() + height + 3, -6250336);
+		Renderer.drawRect(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 2, -0xFFFFFF - 1);
 	}
 
 	protected void drawMultilined() {
-		List<String> displayLines = TextRenderer.getFontRenderer().listFormattedStringToWidth(this.text, this.width);
+		List<String> displayLines = TextRenderer.getFontRenderer().listFormattedStringToWidth(text, width);
 		for (int i = 0; i < displayLines.size(); i++) {
 			String displayLine = displayLines.get(i);
-			int y = this.getY() + (i * TextRenderer.getFontRenderer().FONT_HEIGHT);
-			if (y >= (this.getY() + this.height)) {
+			int y = getY() + (i * TextRenderer.getFontRenderer().FONT_HEIGHT);
+			if (y >= (getY() + height)) {
 				break;
 			}
-			this.drawAlignedLine(this.getX(), y, this.getWidth(), displayLine, this.alignment);
+			drawAlignedLine(getX(), y, getWidth(), displayLine, alignment);
 		}
 	}
 
 	protected void drawOneLined() {
-		String displayText = TextRenderer.getFontRenderer().trimStringToWidth(this.text, this.width);
-		this.drawAlignedLine(this.getX(), this.getY(), this.getWidth(), displayText, this.alignment);
+		String displayText = TextRenderer.getFontRenderer().trimStringToWidth(text, width);
+		drawAlignedLine(getX(), getY(), getWidth(), displayText, alignment);
 	}
 
 	public String getText() {
-		return this.text;
+		return text;
 	}
 
 	public TextAlignment getTextAlignment() {
-		return this.alignment;
+		return alignment;
 	}
 
 	public boolean isMultilined() {
-		return this.multiline;
+		return multiline;
 	}
 
 	public boolean isVisible() {
-		return this.isVisible;
+		return isVisible;
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
 		super.onDraw(mouseX, mouseY, partialTicks);
-		if (this.isVisible()) {
-			if (this.shouldDrawBackground()) {
-				this.drawBackground();
+		if (isVisible()) {
+			if (shouldDrawBackground()) {
+				drawBackground();
 			}
-			if (this.isMultilined()) {
-				this.drawMultilined();
+			if (isMultilined()) {
+				drawMultilined();
 			} else {
-				this.drawOneLined();
+				drawOneLined();
 			}
 		}
 	}
@@ -116,17 +114,17 @@ public class TextLabel extends GuiWidget implements Shiftable {
 
 	@Override
 	public TextLabel setId(String id) {
-		this.assignId(id);
+		assignId(id);
 		return this;
 	}
 
 	public TextLabel setIsVisible(boolean visible) {
-		this.isVisible = visible;
+		isVisible = visible;
 		return this;
 	}
 
 	public TextLabel setMultilined(boolean multilined) {
-		this.multiline = multilined;
+		multiline = multilined;
 		return this;
 	}
 
@@ -135,21 +133,21 @@ public class TextLabel extends GuiWidget implements Shiftable {
 	}
 
 	public TextLabel setTextAlignment(TextAlignment align) {
-		this.alignment = align;
+		alignment = align;
 		return this;
 	}
 
 	@Override
 	public void shiftX(int x) {
-		this.setX(this.getX() + x);
+		setX(getX() + x);
 	}
 
 	@Override
 	public void shiftY(int y) {
-		this.setY(this.getY() + y);
+		setY(getY() + y);
 	}
 
 	public boolean shouldDrawBackground() {
-		return this.drawBackground;
+		return drawBackground;
 	}
 }

@@ -44,12 +44,12 @@ public class PictureButtonGridEntry extends Button implements GridEntry {
 
 	public PictureButtonGridEntry(int width, int height, ResourceLocation texture, OnClickListener listener) {
 		super(0, 0, width, height, "");
-		this.pictureTexture = texture;
+		pictureTexture = texture;
 		try {
 			BufferedImage image = ImageIO
 					.read(Minecraft.getMinecraft().getResourceManager().getResource(texture).getInputStream());
-			this.imageWidth = image.getWidth();
-			this.imageHeight = image.getHeight();
+			imageWidth = image.getWidth();
+			imageHeight = image.getHeight();
 		} catch (IOException ioex) {
 			throw new RuntimeException("Can't get resource", ioex);
 		}
@@ -58,70 +58,70 @@ public class PictureButtonGridEntry extends Button implements GridEntry {
 
 	@Override
 	public PictureButtonGridEntry addHoverText(String text) {
-		this.originalHoverText.add(text);
+		originalHoverText.add(text);
 		return this;
 	}
 
 	@Override
 	public PictureButtonGridEntry doesDrawHoverText(boolean state) {
-		this.drawHoverText = state;
+		drawHoverText = state;
 		return this;
 	}
 
 	@Override
 	public List<String> getHoverText() {
-		return this.originalHoverText;
+		return originalHoverText;
 	}
 
 	public ResourceLocation getPictureTexture() {
-		return this.pictureTexture;
+		return pictureTexture;
 	}
 
 	@Override
 	public void onClick(Grid grid, int mouseX, int mouseY) {
-		if (this.listener != null) {
-			this.listener.onClick(this, grid, mouseX, mouseY);
+		if (listener != null) {
+			listener.onClick(this, grid, mouseX, mouseY);
 		}
 	}
 
 	@Override
 	public void onDraw(Grid grid, int posX, int posY, int width, int height, int mouseX, int mouseY) {
-		if (this.getX() != posX) {
-			this.setX(posX);
+		if (getX() != posX) {
+			setX(posX);
 		}
-		if (this.getY() != posY) {
-			this.setY(posY);
+		if (getY() != posY) {
+			setY(posY);
 		}
-		if (this.getWidth() != width) {
-			this.setWidth(width);
+		if (getWidth() != width) {
+			setWidth(width);
 		}
-		if (this.getHeight() != height) {
-			this.setHeight(height);
+		if (getHeight() != height) {
+			setHeight(height);
 		}
-		if (this.isVisible()) {
-			this.prepareRender();
-			if (!this.isEnabled()) {
-				this.drawButton(DISABLED_STATE);
-				this.renderPicture();
-			} else if (this.isButtonUnderMouse(mouseX, mouseY)) {
-				this.drawButton(HOVER_STATE);
-				this.renderPicture();
-				if (this.drawHoverText) {
-					this.verifyHoverText(mouseX, mouseY);
-					if (this.drawToLeft) {
+		if (isVisible()) {
+			prepareRender();
+			if (!isEnabled()) {
+				drawButton(DISABLED_STATE);
+				renderPicture();
+			} else if (isButtonUnderMouse(mouseX, mouseY)) {
+				drawButton(HOVER_STATE);
+				renderPicture();
+				if (drawHoverText) {
+					verifyHoverText(mouseX, mouseY);
+					if (drawToLeft) {
 						int tlineWidth = 0;
-						for (String line : this.hoverText) {
+						for (String line : hoverText) {
 							tlineWidth = TextRenderer.getFontRenderer().getStringWidth(line) > tlineWidth
 									? TextRenderer.getFontRenderer().getStringWidth(line) : tlineWidth;
 						}
-						Renderer.drawHoveringText(this.hoverText, mouseX - tlineWidth - 20, mouseY);
+						Renderer.drawHoveringText(hoverText, mouseX - tlineWidth - 20, mouseY);
 					} else {
-						Renderer.drawHoveringText(this.hoverText, mouseX, mouseY);
+						Renderer.drawHoveringText(hoverText, mouseX, mouseY);
 					}
 				}
 			} else {
-				this.drawButton(IDLE_STATE);
-				this.renderPicture();
+				drawButton(IDLE_STATE);
+				renderPicture();
 			}
 		}
 	}
@@ -132,25 +132,25 @@ public class PictureButtonGridEntry extends Button implements GridEntry {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		Minecraft.getMinecraft().renderEngine.bindTexture(this.pictureTexture);
-		Renderer.drawTexturedModalRect(this.getX(), this.getY(), 0, 0, this.getWidth()-2, this.getHeight()-2,
-				this.getWidth() - 2, this.getHeight() - 2, 0);
+		Minecraft.getMinecraft().renderEngine.bindTexture(pictureTexture);
+		Renderer.drawTexturedModalRect(getX(), getY(), 0, 0, getWidth() - 2, getHeight() - 2, getWidth() - 2,
+				getHeight() - 2, 0);
 		GL11.glPopMatrix();
 	}
 
 	public PictureButtonGridEntry setClickListener(OnClickListener onClicked) {
-		this.listener = onClicked;
+		listener = onClicked;
 		return this;
 	}
 
 	@Override
 	public PictureButtonGridEntry setHoverText(List<String> text) {
-		this.originalHoverText = text;
+		originalHoverText = text;
 		return this;
 	}
 
 	public PictureButtonGridEntry setPictureTexture(ResourceLocation res) {
-		this.pictureTexture = res;
+		pictureTexture = res;
 		return this;
 	}
 }

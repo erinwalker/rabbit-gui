@@ -47,8 +47,8 @@ public class LayoutComponentWrapper {
 	public IGui create(IShow show) throws Exception {
 		IGui com;
 
-		com = instantiateType(this.type);
-		for (ILayoutArgument arg : this.args) {
+		com = instantiateType(type);
+		for (ILayoutArgument arg : args) {
 			Object value = null;
 			if (arg instanceof LayoutArgument) {
 				value = ((LayoutArgument) arg).get();
@@ -62,10 +62,10 @@ public class LayoutComponentWrapper {
 	}
 
 	public Set<ILayoutArgument> getArguments() {
-		return this.args;
+		return args;
 	}
 
 	public Class getType() {
-		return this.type;
+		return type;
 	}
 }

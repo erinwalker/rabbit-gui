@@ -46,8 +46,8 @@ public class JsonLayoutParser implements LayoutParser {
 
 	private LayoutShow from(JsonElement json) {
 		JsonObject layout = json.getAsJsonObject();
-		this.parseTitle(layout);
-		List<LayoutComponentWrapper> components = this.wrapComponents(this.parseComponents(layout));
+		parseTitle(layout);
+		List<LayoutComponentWrapper> components = wrapComponents(parseComponents(layout));
 		return new LayoutShow(components);
 	}
 
@@ -82,14 +82,14 @@ public class JsonLayoutParser implements LayoutParser {
 		ILayoutArgument result = null;
 		boolean isSimple = ClassUtils.isPrimitiveOrWrapper(type) || type.isAssignableFrom(String.class);
 		if (isSimple) {
-			Object value = this.getPrimitiveValue(type, element);
+			Object value = getPrimitiveValue(type, element);
 			if (value instanceof Expression) {
 				result = new LayoutCalculatableArgument(fieldName, (Expression) value);
 			} else {
 				result = new LayoutArgument(fieldName, value);
 			}
 		} else {
-			result = new LayoutArgument(fieldName, this.getComplicatedValue(type, element));
+			result = new LayoutArgument(fieldName, getComplicatedValue(type, element));
 		}
 		return result;
 	}
@@ -99,7 +99,7 @@ public class JsonLayoutParser implements LayoutParser {
 		for (Entry<String, JsonElement> entry : fields.entrySet()) {
 			Class<?> fieldType = allowedFields.get(entry.getKey());
 			Validate.notNull(fieldType, entry.getKey() + " not found in component");
-			result.add(this.getArgument(entry.getKey(), fieldType, entry.getValue()));
+			result.add(getArgument(entry.getKey(), fieldType, entry.getValue()));
 		}
 		return result;
 	}
@@ -139,8 +139,8 @@ public class JsonLayoutParser implements LayoutParser {
 					.collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 			Class<? extends IGui> componentType = (Class<? extends IGui>) Class
 					.forName(layoutFields.remove("type").getAsString());
-			Map<String, Class<?>> allowedFields = this.getAllowedFields(componentType);
-			List<ILayoutArgument> layoutArgument = this.getArguments(layoutFields, allowedFields);
+			Map<String, Class<?>> allowedFields = getAllowedFields(componentType);
+			List<ILayoutArgument> layoutArgument = getArguments(layoutFields, allowedFields);
 			return new LayoutComponentWrapper(componentType, new HashSet(layoutArgument));
 		} catch (ClassNotFoundException | ClassCastException ex) {
 			ex.printStackTrace();
@@ -149,7 +149,7 @@ public class JsonLayoutParser implements LayoutParser {
 	}
 
 	private List<LayoutComponentWrapper> wrapComponents(JsonArray components) {
-		return Lists.newArrayList(components.iterator()).stream().map(element -> this.wrap(element.getAsJsonObject()))
+		return Lists.newArrayList(components.iterator()).stream().map(element -> wrap(element.getAsJsonObject()))
 				.collect(Collectors.toList());
 	}
 

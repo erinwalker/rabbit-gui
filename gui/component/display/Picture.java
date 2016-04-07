@@ -28,8 +28,8 @@ public class Picture extends GuiWidget {
 		try {
 			BufferedImage image = ImageIO
 					.read(Minecraft.getMinecraft().getResourceManager().getResource(texture).getInputStream());
-			this.imageWidth = image.getWidth();
-			this.imageHeight = image.getHeight();
+			imageWidth = image.getWidth();
+			imageHeight = image.getHeight();
 		} catch (IOException ioex) {
 			throw new RuntimeException("Can't get resource", ioex);
 		}
@@ -38,7 +38,7 @@ public class Picture extends GuiWidget {
 	@Override
 	public void onDraw(int xMouse, int yMouse, float partialTicks) {
 		super.onDraw(xMouse, yMouse, partialTicks);
-		this.renderPicture();
+		renderPicture();
 	}
 
 	private void renderPicture() {
@@ -47,9 +47,8 @@ public class Picture extends GuiWidget {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-		Renderer.drawTexturedModalRect(this.getX(), this.getY(), 0, 0, this.getWidth(), this.getHeight(),
-				this.getWidth(), this.getHeight(), 0);
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		Renderer.drawTexturedModalRect(getX(), getY(), 0, 0, getWidth(), getHeight(), getWidth(), getHeight(), 0);
 		GL11.glPopMatrix();
 	}
 }

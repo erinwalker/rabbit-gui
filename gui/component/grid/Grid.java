@@ -40,39 +40,38 @@ public class Grid extends GuiWidget implements WidgetList<GridEntry> {
 		super(xPos, yPos, width, height);
 		this.slotHeight = slotHeight;
 		this.slotWidth = slotWidth;
-		this.xSlots = width / slotWidth;
+		xSlots = width / slotWidth;
 		this.content = content;
 	}
 
 	@Override
 	public Grid add(GridEntry object) {
-		this.content.add(object);
+		content.add(object);
 		return this;
 	}
 
 	@Override
 	public Grid addAll(GridEntry... objects) {
-		this.content.addAll(Arrays.asList(objects));
+		content.addAll(Arrays.asList(objects));
 		return this;
 	}
 
 	@Override
 	public Grid clear() {
-		this.content.clear();
+		content.clear();
 		return this;
 	}
 
 	protected void drawGridBackground() {
-		Renderer.drawRect(this.getX() - 1, this.getY() - 1, this.getX() + this.width + 1, this.getY() + this.height + 1,
-				-6250336);
-		Renderer.drawRect(this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height, -0xFFFFFF - 1);
+		Renderer.drawRect(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, -6250336);
+		Renderer.drawRect(getX(), getY(), getX() + width, getY() + height, -0xFFFFFF - 1);
 	}
 
 	protected void drawGridContent(int mouseX, int mouseY) {
-		for (int i = 0; i < this.content.size(); i++) {
-			GridEntry entry = this.content.get(i);
-			int slotPosX = this.getX() + ((i % this.xSlots) * this.slotWidth);
-			int slotPosY = this.getY() + ((i / this.xSlots) * this.slotHeight);
+		for (int i = 0; i < content.size(); i++) {
+			GridEntry entry = content.get(i);
+			int slotPosX = getX() + ((i % xSlots) * slotWidth);
+			int slotPosY = getY() + ((i / xSlots) * slotHeight);
 			int slotWidth = this.slotWidth;
 			int slotHeight = this.slotHeight;
 			entry.onDraw(this, slotPosX + 1, slotPosY + 1, slotWidth - 2, slotHeight - 2, mouseX, mouseY);
@@ -80,24 +79,24 @@ public class Grid extends GuiWidget implements WidgetList<GridEntry> {
 	}
 
 	public boolean drawHorizontalLines() {
-		return this.horizontalLines;
+		return horizontalLines;
 	}
 
 	public boolean drawVerticalLines() {
-		return this.verticalLines;
+		return verticalLines;
 	}
 
 	@Override
 	public List<GridEntry> getContent() {
-		return this.content;
+		return content;
 	}
 
 	protected void handleMouseClickGrid(int mouseX, int mouseY) {
-		for (int i = 0; i < this.content.size(); i++) {
-			GridEntry entry = this.content.get(i);
-			int slotPosX = this.getX() + ((i % this.xSlots) * this.slotWidth);
-			int slotPosY = this.getY() + ((i / this.xSlots) * this.slotHeight);
-			int slotWidth = this.width;
+		for (int i = 0; i < content.size(); i++) {
+			GridEntry entry = content.get(i);
+			int slotPosX = getX() + ((i % xSlots) * slotWidth);
+			int slotPosY = getY() + ((i / xSlots) * slotHeight);
+			int slotWidth = width;
 			int slotHeight = this.slotHeight;
 			boolean clickedOnEntry = Geometry.isDotInArea(slotPosX, slotPosY, slotWidth, slotHeight, mouseX, mouseY);
 			if (clickedOnEntry) {
@@ -107,48 +106,47 @@ public class Grid extends GuiWidget implements WidgetList<GridEntry> {
 	}
 
 	public boolean isVisibleBackground() {
-		return this.visibleBackground;
+		return visibleBackground;
 	}
 
 	@Override
 	public void onDraw(int mouseX, int mouseY, float partialTicks) {
-		if (this.isVisibleBackground()) {
-			this.drawGridBackground();
+		if (isVisibleBackground()) {
+			drawGridBackground();
 		}
-		this.drawGridContent(mouseX, mouseY);
+		drawGridContent(mouseX, mouseY);
 		super.onDraw(mouseX, mouseY, partialTicks);
 	}
 
 	@Override
 	public boolean onMouseClicked(int posX, int posY, int mouseButtonIndex, boolean overlap) {
 		super.onMouseClicked(posX, posY, mouseButtonIndex, overlap);
-		boolean clickedOnGrid = !overlap
-				&& Geometry.isDotInArea(this.getX(), this.getY(), this.width, this.height, posX, posY);
+		boolean clickedOnGrid = !overlap && Geometry.isDotInArea(getX(), getY(), width, height, posX, posY);
 		if (clickedOnGrid) {
-			this.handleMouseClickGrid(posX, posY);
+			handleMouseClickGrid(posX, posY);
 		}
 		return clickedOnGrid;
 	}
 
 	@Override
 	public Grid remove(GridEntry object) {
-		this.content.remove(object);
+		content.remove(object);
 		return this;
 	}
 
 	public Grid setDrawHorizontalLines(boolean flag) {
-		this.horizontalLines = flag;
+		horizontalLines = flag;
 		return this;
 	}
 
 	public Grid setDrawVerticalLines(boolean flag) {
-		this.verticalLines = flag;
+		verticalLines = flag;
 		return this;
 	}
 
 	@Override
 	public Grid setId(String id) {
-		this.assignId(id);
+		assignId(id);
 		return this;
 	}
 
