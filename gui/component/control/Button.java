@@ -73,7 +73,7 @@ public class Button extends GuiWidget implements Shiftable {
 	}
 
 	public Button addHoverText(String text) {
-		hoverText.add(text);
+		originalHoverText.add(text);
 		return this;
 	}
 
@@ -101,7 +101,7 @@ public class Button extends GuiWidget implements Shiftable {
 	}
 
 	public List<String> getHoverText() {
-		return hoverText;
+		return originalHoverText;
 	}
 
 	public String getText() {
@@ -136,7 +136,17 @@ public class Button extends GuiWidget implements Shiftable {
 			} else if (isButtonUnderMouse(mouseX, mouseY)) {
 				drawButton(HOVER_STATE);
 				if (drawHoverText) {
-					Renderer.drawHoveringText(hoverText, mouseX, mouseY);
+					verifyHoverText(mouseX, mouseY);
+					if (drawToLeft) {
+						int tlineWidth = 0;
+						for (String line : hoverText) {
+							tlineWidth = TextRenderer.getFontRenderer().getStringWidth(line) > tlineWidth
+									? TextRenderer.getFontRenderer().getStringWidth(line) : tlineWidth;
+						}
+						Renderer.drawHoveringText(hoverText, mouseX - tlineWidth - 20, mouseY + 12);
+					} else {
+						Renderer.drawHoveringText(hoverText, mouseX, mouseY + 12);
+					}
 				}
 			} else {
 				drawButton(IDLE_STATE);
@@ -189,7 +199,7 @@ public class Button extends GuiWidget implements Shiftable {
 	}
 
 	public Button setHoverText(List<String> text) {
-		hoverText = text;
+		originalHoverText = text;
 		return this;
 	}
 

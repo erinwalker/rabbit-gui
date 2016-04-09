@@ -114,9 +114,9 @@ public class PictureButtonGridEntry extends Button implements GridEntry {
 							tlineWidth = TextRenderer.getFontRenderer().getStringWidth(line) > tlineWidth
 									? TextRenderer.getFontRenderer().getStringWidth(line) : tlineWidth;
 						}
-						Renderer.drawHoveringText(hoverText, mouseX - tlineWidth - 20, mouseY);
+						Renderer.drawHoveringTextInScissoredArea(hoverText, mouseX - tlineWidth - 20, mouseY);
 					} else {
-						Renderer.drawHoveringText(hoverText, mouseX, mouseY);
+						Renderer.drawHoveringTextInScissoredArea(hoverText, mouseX, mouseY);
 					}
 				}
 			} else {

@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.rabbit.gui.layout.LayoutComponent;
 import com.rabbit.gui.render.Renderer;
+import com.rabbit.gui.render.TextRenderer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -53,7 +54,17 @@ public class PictureButton extends Button {
 				drawButton(HOVER_STATE);
 				renderPicture();
 				if (drawHoverText) {
-					Renderer.drawxHoveringText(hoverText, mouseX, mouseY);
+					verifyHoverText(mouseX, mouseY);
+					if (drawToLeft) {
+						int tlineWidth = 0;
+						for (String line : hoverText) {
+							tlineWidth = TextRenderer.getFontRenderer().getStringWidth(line) > tlineWidth
+									? TextRenderer.getFontRenderer().getStringWidth(line) : tlineWidth;
+						}
+						Renderer.drawHoveringText(hoverText, mouseX - tlineWidth - 20, mouseY + 12);
+					} else {
+						Renderer.drawHoveringText(hoverText, mouseX, mouseY + 12);
+					}
 				}
 			} else {
 				drawButton(IDLE_STATE);

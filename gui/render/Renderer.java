@@ -181,7 +181,7 @@ public class Renderer {
 		drawRect(startX, y, endX + 1, y + 1, color);
 	}
 
-	public static void drawHoveringText(List<String> content, int xPos, int yPos) {
+	public static void drawHoveringTextInScissoredArea(List<String> content, int xPos, int yPos) {
 		if (!content.isEmpty()) {
 			GL11.glPushMatrix();
 			GL11.glDisable(GL11.GL_SCISSOR_TEST);
@@ -462,7 +462,7 @@ public class Renderer {
 		drawRect(x, startY + 1, x + 1, endY, color);
 	}
 
-	public static void drawxHoveringText(List<String> content, int xPos, int yPos) {
+	public static void drawHoveringText(List<String> content, int xPos, int yPos) {
 		if (!content.isEmpty()) {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0, 0, 1);
