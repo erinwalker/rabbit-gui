@@ -181,6 +181,52 @@ public class Renderer {
 		drawRect(startX, y, endX + 1, y + 1, color);
 	}
 
+	public static void drawHoveringText(List<String> content, int xPos, int yPos) {
+		if (!content.isEmpty()) {
+			GL11.glPushMatrix();
+			GL11.glTranslatef(0, 0, 1);
+
+			int width = 0;
+			for (String line : content) {
+				int lineWidth = TextRenderer.getFontRenderer().getStringWidth(line);
+				width = Math.max(width, lineWidth);
+			}
+			int x = xPos + 12;
+			int y = yPos - 12;
+			int additional = 8;
+
+			if (content.size() > 1) {
+				additional += 2 + ((content.size() - 1) * 10);
+			}
+
+			int firstColor = -267386864;
+			int secondColor = 1347420415;
+
+			drawGradient(x - 3, y - 4, x + width + 3, y - 3, firstColor, firstColor);
+			drawGradient(x - 3, y + additional + 3, x + width + 3, y + additional + 4, firstColor, firstColor);
+			drawGradient(x - 3, y - 3, x + width + 3, y + additional + 3, firstColor, firstColor);
+			drawGradient(x - 4, y - 3, x - 3, y + additional + 3, firstColor, firstColor);
+			drawGradient(x + width + 3, y - 3, x + width + 4, y + additional + 3, firstColor, firstColor);
+			int l1 = ((secondColor & 16711422) >> 1) | (secondColor & -16777216);
+			drawGradient(x - 3, (y - 3) + 1, (x - 3) + 1, (y + additional + 3) - 1, secondColor, l1);
+			drawGradient(x + width + 2, (y - 3) + 1, x + width + 3, (y + additional + 3) - 1, secondColor, l1);
+			drawGradient(x - 3, y - 3, x + width + 3, (y - 3) + 1, secondColor, secondColor);
+			drawGradient(x - 3, y + additional + 2, x + width + 3, y + additional + 3, l1, l1);
+
+			for (int i = 0; i < content.size(); ++i) {
+				String line = content.get(i);
+				TextRenderer.renderString(x, y, line, Color.white, true, TextAlignment.LEFT);
+				if (i == 0) {
+					y += 2;
+				}
+				y += 10;
+			}
+
+			GL11.glTranslatef(0, 0, -1);
+			GL11.glPopMatrix();
+		}
+	}
+
 	public static void drawHoveringTextInScissoredArea(List<String> content, int xPos, int yPos) {
 		if (!content.isEmpty()) {
 			GL11.glPushMatrix();
@@ -460,52 +506,6 @@ public class Renderer {
 		}
 
 		drawRect(x, startY + 1, x + 1, endY, color);
-	}
-
-	public static void drawHoveringText(List<String> content, int xPos, int yPos) {
-		if (!content.isEmpty()) {
-			GL11.glPushMatrix();
-			GL11.glTranslatef(0, 0, 1);
-
-			int width = 0;
-			for (String line : content) {
-				int lineWidth = TextRenderer.getFontRenderer().getStringWidth(line);
-				width = Math.max(width, lineWidth);
-			}
-			int x = xPos + 12;
-			int y = yPos - 12;
-			int additional = 8;
-
-			if (content.size() > 1) {
-				additional += 2 + ((content.size() - 1) * 10);
-			}
-
-			int firstColor = -267386864;
-			int secondColor = 1347420415;
-
-			drawGradient(x - 3, y - 4, x + width + 3, y - 3, firstColor, firstColor);
-			drawGradient(x - 3, y + additional + 3, x + width + 3, y + additional + 4, firstColor, firstColor);
-			drawGradient(x - 3, y - 3, x + width + 3, y + additional + 3, firstColor, firstColor);
-			drawGradient(x - 4, y - 3, x - 3, y + additional + 3, firstColor, firstColor);
-			drawGradient(x + width + 3, y - 3, x + width + 4, y + additional + 3, firstColor, firstColor);
-			int l1 = ((secondColor & 16711422) >> 1) | (secondColor & -16777216);
-			drawGradient(x - 3, (y - 3) + 1, (x - 3) + 1, (y + additional + 3) - 1, secondColor, l1);
-			drawGradient(x + width + 2, (y - 3) + 1, x + width + 3, (y + additional + 3) - 1, secondColor, l1);
-			drawGradient(x - 3, y - 3, x + width + 3, (y - 3) + 1, secondColor, secondColor);
-			drawGradient(x - 3, y + additional + 2, x + width + 3, y + additional + 3, l1, l1);
-
-			for (int i = 0; i < content.size(); ++i) {
-				String line = content.get(i);
-				TextRenderer.renderString(x, y, line, Color.white, true, TextAlignment.LEFT);
-				if (i == 0) {
-					y += 2;
-				}
-				y += 10;
-			}
-
-			GL11.glTranslatef(0, 0, -1);
-			GL11.glPopMatrix();
-		}
 	}
 
 	public static TextureAtlasSprite getIcon(Block block) {
