@@ -1,41 +1,30 @@
 package com.rabbit.gui;
 
-import com.rabbit.gui.base.Stage;
-import com.rabbit.gui.show.IShow;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import net.minecraft.client.Minecraft;
+import com.rabbit.gui.proxy.Proxy;
+import com.rabbit.gui.reference.MetaData;
+import com.rabbit.gui.reference.Reference;
 
-@Mod(modid = "rabbit-gui", name = "Rabbit Gui Library", version = "v1.3.0")
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ModMetadata;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+
+//does this need to be its own mod? we can probably just have the code live with the others
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 public class GuiFoundation {
 
-    @Mod.EventHandler
-    public void postLoad(FMLPostInitializationEvent event) {
-        FMLLog.info("Rabbit Gui has been successfully initialized");
-    }
+	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
+	public static Proxy proxy;
 
-    /**
-     * If there are any currently opened Stage it will display given show in it <br>
-     * Otherwise will create new Stage
-     * @param show
-     */
-    public static void display(IShow show){
-        Stage current = getCurrentStage();
-        if(current != null){
-            current.setShow(show);
-            current.reinitShow();
-        } else {
-            Minecraft.getMinecraft().displayGuiScreen(new Stage());
-            getCurrentStage().display(show);
-        }
-    }
+	@Mod.Metadata(Reference.MOD_ID)
+	public ModMetadata metadata;
 
-    /**
-     * Returns currently opened Stage, may be null
-     */
-    public static Stage getCurrentStage(){
-       return Minecraft.getMinecraft().currentScreen instanceof Stage ? (Stage)Minecraft.getMinecraft().currentScreen : null;
-    }
+	@Mod.EventHandler
+	public void postLoad(FMLPostInitializationEvent event) {
+		metadata = MetaData.init(metadata);
+		proxy.init();
+		FMLLog.info("Rabbit Gui has been successfully initialized");
+	}
 
 }
